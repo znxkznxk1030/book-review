@@ -6,6 +6,7 @@
     - [Whence 37%?](#whence-37)
       - [Look-Then-Leap-Rule](#look-then-leap-rule)
         - [How to optimally choose a secretary](#how-to-optimally-choose-a-secretary)
+    - [Lover's Leap](#lovers-leap)
   - [2. Explore/Exploit](#2-exploreexploit)
   - [3. Sorting](#3-sorting)
   - [4. Caching](#4-caching)
@@ -75,6 +76,10 @@ Look-Then-Leap-Rule 방법의 최선의 방법이라고 대단하듯이 포장�
 위 표에서 보다싶이 최고의 비서를 뽑는데 실패할 확률은 무려 63%나 된다.  
 하지만 이 방법이 의미있는건 후보자의 숫자가 천명이든 만명이 이든 혹은 그이상이 되어도 언제나 37%의 확률로 최고의 후보를 뽑을 수 있다는 것이다.
 
+### Lover's Leap
+
+
+
 
 ## 2. Explore/Exploit
 
@@ -127,3 +132,11 @@ Look-Then-Leap-Rule 방법의 최선의 방법이라고 대단하듯이 포장�
 - streak : 긴 줄
 - emerges : 드러나다
 - whence : 어떻게
+- halfheartedly : 열정이나 에너지 없이
+- decry : 공적으로 잘못되었음을 알리다
+- copernican : 니콜라스 코페니우스, Copenican Revolution: 천동설 => 지동설
+- terrestrial : 거주지역에서의
+- bemoan : 깊이 슬퍼짐
+- confidante : 비밀을 지킬만클 신뢰할만한 사람
+- consolation : 위로
+- degeneracy : 타락한 상태나 재산.
