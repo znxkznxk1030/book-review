@@ -7,6 +7,7 @@
       - [Look-Then-Leap-Rule](#look-then-leap-rule)
         - [How to optimally choose a secretary](#how-to-optimally-choose-a-secretary)
     - [Lover's Leap](#lovers-leap)
+    - [Knowing a Good Thing When You See It: Full Information](#knowing-a-good-thing-when-you-see-it-full-information)
   - [2. Explore/Exploit](#2-exploreexploit)
   - [3. Sorting](#3-sorting)
   - [4. Caching](#4-caching)
@@ -78,14 +79,15 @@ Look-Then-Leap-Rule 방법의 최선의 방법이라고 대단하듯이 포장�
 
 ### Lover's Leap
 
-Look-Then-Leap-Rule 방법으로 최고의 배우자를 찾아보는 것은 여전히 수학적으로 좋은 방법이긴 하다. 하지만 여기엔 비서문제와 다른 몇가지 함정이 있다.
+Look-Then-Leap-Rule 방법으로 최고의 배우자를 찾아보는 것은 여전히 수학적으로 좋은 방법이긴 하다. 하지만 비서문제를 현실에 적용할 때에는 고려해야할 몇가지 변화 요소들이 있다.
 
-첫째는 우리는 면접관과 다르게 거절 당할 수 있다. ( Reject ) 후보자가 비서 면접을 본 것과 다르게 연인과의 결혼은 나 혼자 결정 할 수 있는 것이 아니다. 상대가 날 그저 애인으로만 생각한다면 최고의 배우자를 만났다 하더라도 결정 으로 이어질 수 없다.
+첫째는 우리는 면접관과 다르게 거절( Reject ) 당할 수 있다. 후보자가 비서 면접을 본 것과 다르게 연인과의 결혼은 나 혼자 결정 할 수 있는 것이 아니다. 상대가 날 그저 애인으로만 생각한다면 최고의 배우자를 만났다 하더라도 결정 으로 이어질 수 없다.
 
-두번째는 우리는 거절한 상대에게 다시 요청 할 수도 있다. ( Recall ) 사람 앞에서 찌질하지 않은 사람이 어디 있겠는가. 한번 사랑에 거절 당했다고 한들 시간이 지나 어쩌다 인연이 닿아 만나게 된다면 다시금 용기내 구애 해 볼 수 있고 그것이 결정으로 이어 질 수도 있다.
+두번째는 우리는 거절한 상대에게 다시 요청( Recall ) 할 수도 있다. 사람 앞에서 찌질하지 않은 사람이 어디 있겠는가. 한번 사랑에 거절 당했다고 한들 시간이 지나 어쩌다 인연이 닿아 만나게 된다면 다시금 용기내 구애 해 볼 수 있고 그것이 결정으로 이어 질 수도 있다.
 
-그 외에도 우리는 살면서 몇명의 연인을 만날 수 있을지 정확히는 알 수 없기도 하다. 그럼에도
-다른 요소들이 추가 되어 복잡성은 훨씬 높아졌지만, 각 요소에도 확률을 적용해 볼 수 있고 최고의 배우자를 구하기 위한 방법을 수학적으로 도입해 볼 여지가 있다.
+변화적 요소들이 추가 되어 복잡성은 훨씬 높아졌다. 하지만 거절과 재요청에도 확률을 적용할 수 있고,    각 요소에 확률을 적용하면 여전히 탐색 후 결정하는 방법으로 최선을 찾을 수 있다.
+
+### Knowing a Good Thing When You See It: Full Information
 
 ## 2. Explore/Exploit
 
@@ -155,7 +157,7 @@ Look-Then-Leap-Rule 방법으로 최고의 배우자를 찾아보는 것은 여�
 - call into question : 의문을 제기하다.
 - far cry from: 거리가 먼
 - rub : 장애
-- weight : 무게를달다
+- weigh : 무게를달다
 - likelihood : 있을 수 있는 일
 - odds : 확률
 - skew : 비스듬한
