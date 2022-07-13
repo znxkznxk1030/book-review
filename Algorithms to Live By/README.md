@@ -5,10 +5,13 @@
     - [The Secretary Problem ( 비서 문제 )](#the-secretary-problem--비서-문제-)
     - [Whence 37%?](#whence-37)
       - [Look-Then-Leap-Rule](#look-then-leap-rule)
-        - [How to optimally choose a secretary](#how-to-optimally-choose-a-secretary)
     - [Lover's Leap](#lovers-leap)
     - [Knowing a Good Thing When You See It: Full Information](#knowing-a-good-thing-when-you-see-it-full-information)
+      - [Threshold Rule](#threshold-rule)
     - [When To Sell](#when-to-sell)
+    - [When To Park](#when-to-park)
+    - [When To Quit](#when-to-quit)
+    - [Always Be Stopping](#always-be-stopping)
   - [2. Explore/Exploit](#2-exploreexploit)
   - [3. Sorting](#3-sorting)
   - [4. Caching](#4-caching)
@@ -56,7 +59,7 @@
 이 전략은 탐색하는 시간을 명확히 설정해주는 것이다. 어떤 매력적인 지원자가 온다고 하더라도 탐색하는 시간 ("Look")에는 절대 결정("Leap") 하지 않는 것이다. 그리고 탐색전이 끝난 후에는 지금까지 중에 최고인 ( "Best Yet" ) 지원자가 나타났을 때에는 주저없이 결정해버리는 전략이다.  
 그리고 여기서 탐색시간은 수학자들이 계산했을때 전체시간의 37%가 최적시간이라고 한다.
 
-##### How to optimally choose a secretary
+- How to optimally choose a secretary
 
 | 비서 지원자의 수 | 탐색할 지원자의 수 | 최고의 비서를 뽑을 확률 |
 | ---------------- | ------------------ | ----------------------- |
@@ -93,6 +96,8 @@ Look-Then-Leap-Rule 방법의 최선의 방법이긴 하지만, 위 표에서 �
 앞선 방법에선 비서문제에 거절과 재요청 이라는 요소로 변화를 주어 봤다. 여전히 탐색 후 결정전략이 최선의 선택이다. 그렇다면 전형적인 비서문제에서 좀더 근본적인 요소를 바꾸어 보면 어떨까?  
 각 비서가 객관적 지표를 가지고 있다고 가정해보자. ( 예를 들면, 학업 성취도 점수 혹은 타자속도 같은 절대적인 숫자로 나타낼수 있는 지표 ) 전형적인 비서문제에서는 상대적인 비교만 가능했고, A지원자가 B지원자 보다 얼마나 더 나은지 알 수 없었다. 이러한 객관적 정보가 없는 문제를 비정보게임 ( No Information Game )이라고 한다. 그리고 비정보문제에서는 탐색 후 결정하는 방법으로 해결 하였다. 반면에, 객관적 지표가 있다면 이를 완정정보게임 ( Full Information Game ) 이라고 한다. 이때는 탐색 후 결정하는 방법이 아닌 한계점( Threshold )을 정하여 해결할 수 있다.
 
+#### Threshold Rule
+
 지원자의 객관적 지표를 백분율로 치환해보자. 55%의 지원자는 평균보다 조금 나은 수준이다. 75%의 지원자는 4명중 3명보다 나은 수준이라는 것을 알 수있다. 완정정보게임에서는 더 이상 탐색의 시간이 필요없다. 즉, 만약 첫 지원자가 98%의 지표를 가지고 있다고 가정하면 굳이 그 뒤의 지원자를 볼 필요없이 바로 선택 할 수도 있다는 것이다. 탐색의 시간은 필요없지만 지원자를 하나씩 넘기다 보면 마지막 순간에는 그 지원자가 평균 이하의 지표를 가지고 있더라도 선택해야하는 불상사가 벌어 질 수 있다. 이런 불상사를 방지 하기 위해서 남아있는 지원자 수에 따른 한계점을 두어 선택하는 전략 ( Threshold Role )을 사용할 수 있다. 이 전략으로 세워진 공식에 따르면, 25명이 남았을 때는 97%이상의 지원자를 선택해야하고, 4명이 남았을때는 78%, 3명이 남았을때는 69%, 1명이 남았을 때는 50% 이상일때 선택하는 것이 가장 최선이다.
 
 ### When To Sell
@@ -101,7 +106,11 @@ Look-Then-Leap-Rule 방법의 최선의 방법이긴 하지만, 위 표에서 �
 
 집값은 부동산 시장에 축적된 데이터로 절대적 가격의 범위를 알 수 있기 때문에 완정정보게임 ( Full Information Game ) 이라고 볼 수 있다. 그렇기 때문에 한계점 ( Threshold )규칙을 적용해 볼 수 있다. 하지만 이 문제는 앞선 문제와 다르게 한가지 더 조건이 붙는다. 대출을 받아 집을 샀기 때문에, 시간이 지날 수록 대출 이자에 대한 비용이 발생한다. 즉, 오늘의 제안은 몇달 뒤 같은 제안보다 약간 더 낫은 제안이 된다.
 
+### When To Park
 
+### When To Quit
+
+### Always Be Stopping
 
 ## 2. Explore/Exploit
 
@@ -183,3 +192,10 @@ Look-Then-Leap-Rule 방법의 최선의 방법이긴 하지만, 위 표에서 �
 - criterion : 기준
 - disposal: 처분
 - nebulous: 모호한
+- endeavors: 성취하기 위해 열심히 시도하다
+- grappling with: ~와 씨름하다
+- exploit: 활용하다
+- savor: 
+- friggin': 존나
+- whereas: 반면에
+- sobering: 냉정한
