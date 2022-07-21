@@ -5,6 +5,7 @@
     - [10-1. 조건문 분해하기](#10-1-조건문-분해하기)
     - [10-2. 중복 조건식 통합하기](#10-2-중복-조건식-통합하기)
     - [10-3. 중첩 조건문을 보호 구문으로 바꾸기](#10-3-중첩-조건문을-보호-구문으로-바꾸기)
+      - [보호구문이란?](#보호구문이란)
     - [10-4. 조건부 로직을 다형성으로 바꾸기](#10-4-조건부-로직을-다형성으로-바꾸기)
     - [10-5. 특이 케이스 추가하기 ( 널 객체 추가하기 )](#10-5-특이-케이스-추가하기--널-객체-추가하기-)
     - [10-6. 어서션 추가하기](#10-6-어서션-추가하기)
@@ -66,6 +67,39 @@ Boolean isNotEligibleForDisability() {
 5. 하나로 합쳐진 조건식을 함수로 추출할지 고려해본다.
 
 ### 10-3. 중첩 조건문을 보호 구문으로 바꾸기
+
+```java
+Integer getPayAmount() {
+  Integer result;
+  if (isDead()) {
+    result = deadAmount();
+  } else {
+    if (isSeperated()) {
+      result = separatedAmount();
+    } else {
+      if (isRetired()) {
+        result = retiredAmount();
+      } else {
+        result = normalPayAmount();
+      }
+    }
+  }
+  return result;
+}
+```
+
+```java
+Integer getPayAmount() {
+  if (isDead) return deadAmount();
+  if (isSeperated) return separatedAmount();
+  if (isRetired) return retiredAmount();
+  return normalPayAmound();
+}
+```
+
+#### 보호구문이란?
+
+"이건 이 함수의 핵심이 아니야. 이 일이 일어나면 무언가 조치를 취한 후 함수에서 빠져나와" 하는 것.
 
 ### 10-4. 조건부 로직을 다형성으로 바꾸기
 
