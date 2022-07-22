@@ -125,6 +125,28 @@ switch (bird.type) {
 
 ```java
 // 팩토리 패턴
+List<String> plumages(List<BirdVo> birds) {
+  return birds.stream()
+  .map(b -> {return b.createBird(b)})
+  .map(bird -> {
+    return bird.plumage();
+  })
+  .collect(Collectors.toList());
+}
+
+Bird createBird(BirdVo birdVo) {
+    switch (birdVo.type) {
+    case "European Swallow":
+      return new EuropeanSwallow();
+    case "African Swallow":
+      return new AfricanSwallow();
+    case "Norwegian Blue Parrot":
+      return new NorwegianBlueParrot();
+    default:
+      return new Bird();
+  }
+}
+
 
 class EuropeanSwallow extends Bird {
   @Override
