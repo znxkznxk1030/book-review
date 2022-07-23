@@ -147,7 +147,7 @@ Bird createBird(BirdVo birdVo) {
   }
 }
 
-
+// 추상화
 class EuropeanSwallow extends Bird {
   @Override
   void plumage() {
@@ -181,5 +181,19 @@ class NorwegianBlueParrot extends Bird {
    - 혹은 슈퍼클래스가 추상 클래스여야 한다면, 이 메서드를 추상으로 선언하거나 서브클래스에서 처리해야 함을 알리는 에러를 던진다.
 
 ### 10-5. 특이 케이스 추가하기 ( 널 객체 추가하기 )
+
+```java
+if (aCustomer == "UnknownCustomer") customerName = "Resident"
+```
+
+```java
+class UnknownCustomer {
+  public String name() {
+    return "Resident";
+  }
+}
+```
+
+
 
 ### 10-6. 어서션 추가하기
