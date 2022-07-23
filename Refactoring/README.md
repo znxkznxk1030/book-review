@@ -7,7 +7,8 @@
     - [10-3. 중첩 조건문을 보호 구문으로 바꾸기](#10-3-중첩-조건문을-보호-구문으로-바꾸기)
       - [보호구문이란?](#보호구문이란)
     - [10-4. 조건부 로직을 다형성으로 바꾸기](#10-4-조건부-로직을-다형성으로-바꾸기)
-    - [10-5. 특이 케이스 추가하기 ( 널 객체 추가하기 )](#10-5-특이-케이스-추가하기--널-객체-추가하기-)
+    - [10-5. 특이 케이스 추가하기 ( NULL 객체 추가하기 )](#10-5-특이-케이스-추가하기--null-객체-추가하기-)
+      - [특이케이스 패턴 ( Special Case Pattern )](#특이케이스-패턴--special-case-pattern-)
     - [10-6. 어서션 추가하기](#10-6-어서션-추가하기)
 
 ## 10. 조건부 로직 간소화
@@ -111,15 +112,17 @@ Integer getPayAmount() {
 > 다형성으로 해결가능한 복잡한 조건부 로직을 발견하면 다형성이 막강한 도구임을 깨닫게 된다.
 
 ```java
-switch (bird.type) {
-  case "European Swallow":
-    return "보통이다";
-  case "African Swallow":
-    return (bird.numberOfCoconuts > 2)? "지첫다": "보통이다";
-  case "Norwegian Blue Parrot":
-    return (bird.voltage > 100) ? "그을렸다": "예쁘다";
-  default:
-    return "알 수 없다";
+String plumage(BirdVo birdVo) {
+  switch (bird.getType()) {
+    case "European Swallow":
+      return "보통이다";
+    case "African Swallow":
+      return (bird.getNumberOfCoconuts() > 2)? "지첫다":  "보통이다";
+    case "Norwegian Blue Parrot":
+      return (bird.getVoltage() > 100) ? "그을렸다": "예쁘다";
+    default:
+      return "알 수 없다";
+  }
 }
 ```
 
@@ -150,28 +153,28 @@ Bird createBird(BirdVo birdVo) {
 // 추상화
 class EuropeanSwallow extends Bird {
   @Override
-  void plumage() {
+  String plumage() {
     return "보통이다";
   }
 }
 
 class AfricanSwallow extends Bird {
   @Override
-  void plumage() {
+  String plumage() {
     return (bird.numberOfCoconuts > 2)? "지첫다": "보통이다";
   }
 }
 
 class NorwegianBlueParrot extends Bird {
   @Override
-  void plumage() {
+  String plumage() {
     return (bird.voltage > 100) ? "그을렸다": "예쁘다";
   }
 }
 ```
 
-1. 다형적 동작을 표현하는 클래스들과 팩토리 함수를 만든다.
-2. 호출하는 코드에서 팩토리 함수를 사용하게 한다.
+1. 다형적 동작을 표현하는 클래스들과 **팩토리 함수**를 만든다.
+2. 호출하는 코드에서 **팩토리 함수**를 사용하게 한다.
 3. 조건부 로직 함수를 슈퍼클래스로 옮긴다.
    - 조건부 로직이 온전한 함수로 분리되어 있지 않다면 먼저 함수로 추출한다.
 4. 서브클래스에서 슈퍼클래스의 조건부 로직 메서드를 Override한다.
@@ -180,7 +183,7 @@ class NorwegianBlueParrot extends Bird {
 6. 슈퍼클래스 메서드에서는 기본 동작 부분만 남긴다.
    - 혹은 슈퍼클래스가 추상 클래스여야 한다면, 이 메서드를 추상으로 선언하거나 서브클래스에서 처리해야 함을 알리는 에러를 던진다.
 
-### 10-5. 특이 케이스 추가하기 ( 널 객체 추가하기 )
+### 10-5. 특이 케이스 추가하기 ( NULL 객체 추가하기 )
 
 ```java
 if (aCustomer == "UnknownCustomer") customerName = "Resident"
@@ -194,6 +197,20 @@ class UnknownCustomer {
 }
 ```
 
+1. 컨테이너에 특이 케이스 검사 속성을 추가하고 false 반환.
+2. 특이 케이스 객체 생성. 특이 케이스 특이 케이스 검사 속성만을 추가하고 true 반환.
+3. 클라이언트에서 특이 케이스인지 검사하는 코드를 함수로 추출
+   - 클라이언트들의 특이 케이스 검사 코드는 함수로 교체.
+4. 새로운 특이케이스 대상 추가.
+   - 함수의 반환값으로 받거나 변환함수를 적용하면 된다.
+5. 특이 케이스를 검사하는 함수 본문을 수정하여 특이 케이스 객체의 속성을 사용하도록 한다.
+6. 테스트
+7. 여러 함수를 클래스로 묶기나 여러가지 함수를 변환 함수로 묶기를 적용하여 특이 케이스를 처리하는 공통 동작을 새로운 요소로 옮긴다.
+   - 특이 케이스 클래스는 간단한 요청에는 항상 같은 값을 변환하는 게 보통이므로, 해당 특이 케이스의 리터럴 레코드를 만들어 활용할 수도 있다.
+8. 아직도 특이 케이스 검사 함수를 이용하는 곳이 남아있다면 검사 함수를 인라인 한다.
 
+#### 특이케이스 패턴 ( Special Case Pattern )
+
+> 특수한 경우의 공통동작을 요소 하나에 모아서 사용하는 특이 케이스 패턴 이라는 것이 있는데, 바로 이럴 때 적용하면 좋은 매커니즘이다.
 
 ### 10-6. 어서션 추가하기
