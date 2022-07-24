@@ -273,6 +273,7 @@ const weeksDelinquent =
 
 ```javascript
 // enrichSite
+// 특별한 작업 없이 Deep Copy만 수행한다.
 
 function enrichSite(aSite) {
   const result = _.cloneDeep(aSite);
@@ -290,8 +291,6 @@ function enrichSite(aSite) {
   return result;
 }
 ```
-
-- 특별한 작업 없이 Deep Copy만 수행한다.
 
 ```javascript
 const site = enrichSite(acquireSiteData());
