@@ -10,7 +10,6 @@
     - [10-5. 특이 케이스 추가하기 ( NULL 객체 추가하기 )](#10-5-특이-케이스-추가하기--null-객체-추가하기-)
       - [특이케이스 패턴 ( Special Case Pattern )](#특이케이스-패턴--special-case-pattern-)
       - [예시: 변환 함수 이용하기](#예시-변환-함수-이용하기)
-        - [enrichSite() 통과시키기](#enrichsite-통과시키기)
     - [10-6. 어서션 추가하기](#10-6-어서션-추가하기)
 
 ## 10. 조건부 로직 간소화
@@ -267,12 +266,9 @@ const weeksDelinquent =
 
 - After Refactoring
 
-##### enrichSite() 통과시키기
-
-> 본질은 같고 부가 정보만 덧붙이는 변환 함수의 이름을 enrich라 하고, 형태가 변할 때만 transform이라는 이름을 쓴다.
-
 ```javascript
-// enrichSite
+// enrichSite - 변환 함수
+// 본질은 같고 부가 정보만 덧붙이는 변환 함수의 이름을 enrich라 하고, 형태가 변할 때만 transform이라는 이름을 쓴다.
 // 특별한 작업 없이 Deep Copy만 수행한다.
 
 function enrichSite(aSite) {
