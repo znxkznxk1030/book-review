@@ -9,6 +9,8 @@
     - [10-4. 조건부 로직을 다형성으로 바꾸기](#10-4-조건부-로직을-다형성으로-바꾸기)
     - [10-5. 특이 케이스 추가하기 ( NULL 객체 추가하기 )](#10-5-특이-케이스-추가하기--null-객체-추가하기-)
       - [특이케이스 패턴 ( Special Case Pattern )](#특이케이스-패턴--special-case-pattern-)
+      - [예시: 변환 함수 이용하기](#예시-변환-함수-이용하기)
+        - [enrichSite() 통과시키기](#enrichsite-통과시키기)
     - [10-6. 어서션 추가하기](#10-6-어서션-추가하기)
 
 ## 10. 조건부 로직 간소화
@@ -186,7 +188,8 @@ class NorwegianBlueParrot extends Bird {
 ### 10-5. 특이 케이스 추가하기 ( NULL 객체 추가하기 )
 
 ```java
-if (aCustomer == "UnknownCustomer") customerName = "Resident"
+if (aCustomer == "UnknownCustomer")
+  customerName = "Resident"
 ```
 
 ```java
@@ -212,5 +215,96 @@ class UnknownCustomer {
 #### 특이케이스 패턴 ( Special Case Pattern )
 
 > 특수한 경우의 공통동작을 요소 하나에 모아서 사용하는 특이 케이스 패턴 이라는 것이 있는데, 바로 이럴 때 적용하면 좋은 매커니즘이다.
+
+#### 예시: 변환 함수 이용하기
+
+- Site의 Json 데이터
+
+```json
+// Site의 Json 데이터
+{
+  "name": "Acme Boston",
+  "location": "Malden MA",
+  "customer": {
+    "name": "Acme Industry",
+    "billingPlan": "plan-451",
+    "paymentHistory": {
+      "weeksDelinquentInLastYear": 7
+    }
+  }
+}
+
+{
+  "name": "Warehouse 15",
+  "location": "Malden MA",
+  "customer": "Unknown Customer"
+}
+```
+
+- Before Refactoring
+
+```javascript
+const site = acquireSiteData();
+const aCustomer = site.customer;
+
+// Client 1
+let customerName;
+if (aCustomer === "Unknown Customer") customerName = "Resident";
+else customerName = aCustomer.name;
+
+// Client 2
+const plan =
+  aCustomer === "Unknown Customer"
+    ? registry.billingPlans.basic
+    : aCustomer.billingPlan;
+
+// Client 3
+const weeksDelinquent =
+  aCustomer === "Unknown Customer"
+    ? 0
+    : aCustomer.paymentHistory.weeksDelinquentInLastYear;
+```
+
+- After Refactoring
+
+##### enrichSite() 통과시키기
+
+> 본질은 같고 부가 정보만 덧붙이는 변환 함수의 이름을 enrich라 하고, 형태가 변할 때만 transform이라는 이름을 쓴다.
+
+```javascript
+// enrichSite
+
+function enrichSite(aSite) {
+  const result = _.cloneDeep(aSite);
+  const unknownCustomer = {
+    isUnknown: true,
+    name: "Resident",
+    billingPlan: registry.billingPlans.basic,
+    paymentHistory: {
+      weeksDelinquentInLastYear: 0
+    }
+  };
+
+  if (isUnknown(result.customer)) return.customer = unknownCustomer;
+  else result.customer.isUnknown = false;
+  return result;
+}
+```
+
+- 특별한 작업 없이 Deep Copy만 수행한다.
+
+```javascript
+const site = enrichSite(acquireSiteData());
+const aCustomer = site.customer;
+
+// Client 1
+const customerName = aCustomer.name;
+
+// Client 2
+const plan = aCustomer.billingPlan;
+
+// Client 3
+const weeksDelinquent = aCustomer.paymentHistory.weeksDelinquentInLastYear;
+```
 
 ### 10-6. 어서션 추가하기
