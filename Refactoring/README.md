@@ -303,3 +303,25 @@ const weeksDelinquent = aCustomer.paymentHistory.weeksDelinquentInLastYear;
 ```
 
 ### 10-6. 어서션 추가하기
+
+특정 조건이 참일 때만 제대로 동작하는 코드 영역이 있을 수 있다. 이런 가정이 명시적으로 코드에 기술되어 있지는 않아서 알고리즘을 보고 연역해서 알아내야 할 때도 있다. 이럴때 Assertion을 삽입하는 것이다.
+
+```java
+if (this.discountRate) {
+  base = base - (this.discountRate() * base);
+}
+```
+
+```java
+assert this.discountRate() >= 0
+if (this.discountRate) {
+  base = base - (this.discountRate() * base);
+}
+```
+
+1. 참이라고 가정하는 조건이 보이면 그 조건을 명시하는 어서션을 추가한다
+
+> Assertion은 시스템 운영에 영향을 주면 안 되므로 어서션을 추가한다고 해서 동작이 달라지지는 않는다.
+
+- [Using Java Assertions](https://www.baeldung.com/java-assert)
+
