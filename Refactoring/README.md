@@ -12,6 +12,8 @@
       - [예시: 변환 함수 이용하기](#예시-변환-함수-이용하기)
     - [10-6. 어서션 추가하기](#10-6-어서션-추가하기)
       - [좋은 Assertion](#좋은-assertion)
+    - [10-7. 제어 플래그를 탈출문으로 바꾸기](#10-7-제어-플래그를-탈출문으로-바꾸기)
+      - [제어 플래그](#제어-플래그)
 
 ## 10. 조건부 로직 간소화
 
@@ -214,14 +216,13 @@ class UnknownCustomer {
 
 #### 특이케이스 패턴 ( Special Case Pattern )
 
-> 특수한 경우의 공통동작을 요소 하나에 모아서 사용하는 특이 케이스 패턴 이라는 것이 있는데, 바로 이럴 때 적용하면 좋은 매커니즘이다.
+- 특수한 경우의 공통동작을 요소 하나에 모아서 사용하는 특이 케이스 패턴 이라는 것이 있는데, 바로 이럴 때 적용하면 좋은 매커니즘이다.
 
 #### 예시: 변환 함수 이용하기
 
 - Site의 Json 데이터
 
 ```json
-// Site의 Json 데이터
 {
   "name": "Acme Boston",
   "location": "Malden MA",
@@ -305,13 +306,7 @@ const weeksDelinquent = aCustomer.paymentHistory.weeksDelinquentInLastYear;
 
 ### 10-6. 어서션 추가하기
 
-특정 조건이 참일 때만 제대로 동작하는 코드 영역이 있을 수 있다. 이런 가정이 명시적으로 코드에 기술되어 있지는 않아서 알고리즘을 보고 연역해서 알아내야 할 때도 있다. 이럴때 Assertion을 삽입하는 것이다.
-
-#### 좋은 Assertion
-
-1. 반드시 참인 것이멘 검사하는 것이 좋다.
-2. 외부에서 가져온 데이터를 검사하는 것이라면 예외처리를 이용하자.
-3. Assertion의 조건이 자주 바뀌기 때문에 중복은 치명적이다. 중복된 Assertion이 있다면 중복은 함수 추출로 제거하자.
+- 특정 조건이 참일 때만 제대로 동작하는 코드 영역이 있을 수 있다. 이런 가정이 명시적으로 코드에 기술되어 있지는 않아서 알고리즘을 보고 연역해서 알아내야 할 때도 있다. 이럴때 Assertion을 삽입하는 것이다.
 
 ```java
 if (this.discountRate) {
@@ -330,4 +325,43 @@ if (this.discountRate) {
 
 > Assertion은 시스템 운영에 영향을 주면 안 되므로 어서션을 추가한다고 해서 동작이 달라지지는 않는다.
 
+#### 좋은 Assertion
+
+1. 반드시 참인 것이멘 검사하는 것이 좋다.
+2. 외부에서 가져온 데이터를 검사하는 것이라면 예외처리를 이용하자.
+3. Assertion의 조건이 자주 바뀌기 때문에 중복은 치명적이다. 중복된 Assertion이 있다면 중복은 함수 추출로 제거하자.
+
 - [Using Java Assertions](https://www.baeldung.com/java-assert)
+
+### 10-7. 제어 플래그를 탈출문으로 바꾸기
+
+- 제어 플래그의 주 서식지는 반복문 안이다. break나 continue에 익숙하지 않은 사람이나 함수의 return을 하나로 유지하고자 하는 사람이 심기도 한다. 함수에서 할 일을 마쳤다면 그 사실을 return 문으로 명확히 알리는 편이 낫다.
+
+```java
+for (Person p : people) {
+  if (!found) {
+    if (p instanceof Joker) {
+      sendAlert();
+      found = true;
+    }
+  }
+}
+```
+
+```java
+for (Person p : people) {
+  if (p instanceof Joker) {
+    sendAlert();
+    break;
+  }
+}
+```
+
+1. 제어 플래그를 사용하는 코드를 함수로 추출 할지 고려한다.
+2. 제어 플래그를 갱신하는 코드를 각각을 적절한 제어문으로 바꾼다. 하나 바꿀 때마다 테스트한다.
+   - return, break, countinue
+3. 모두 수정했다면 제어 플래그를 제거한다.
+
+#### 제어 플래그
+
+- 코드의 동작을 변경하는 데 사용되는 변수
