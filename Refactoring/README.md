@@ -11,6 +11,7 @@
       - [특이케이스 패턴 ( Special Case Pattern )](#특이케이스-패턴--special-case-pattern-)
       - [예시: 변환 함수 이용하기](#예시-변환-함수-이용하기)
     - [10-6. 어서션 추가하기](#10-6-어서션-추가하기)
+      - [좋은 Assertion](#좋은-assertion)
 
 ## 10. 조건부 로직 간소화
 
@@ -306,6 +307,12 @@ const weeksDelinquent = aCustomer.paymentHistory.weeksDelinquentInLastYear;
 
 특정 조건이 참일 때만 제대로 동작하는 코드 영역이 있을 수 있다. 이런 가정이 명시적으로 코드에 기술되어 있지는 않아서 알고리즘을 보고 연역해서 알아내야 할 때도 있다. 이럴때 Assertion을 삽입하는 것이다.
 
+#### 좋은 Assertion
+
+1. 반드시 참인 것이멘 검사하는 것이 좋다.
+2. 외부에서 가져온 데이터를 검사하는 것이라면 예외처리를 이용하자.
+3. Assertion의 조건이 자주 바뀌기 때문에 중복은 치명적이다. 중복된 Assertion이 있다면 중복은 함수 추출로 제거하자.
+
 ```java
 if (this.discountRate) {
   base = base - (this.discountRate() * base);
@@ -324,4 +331,3 @@ if (this.discountRate) {
 > Assertion은 시스템 운영에 영향을 주면 안 되므로 어서션을 추가한다고 해서 동작이 달라지지는 않는다.
 
 - [Using Java Assertions](https://www.baeldung.com/java-assert)
-
