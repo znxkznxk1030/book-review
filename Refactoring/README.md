@@ -7,6 +7,7 @@
       - [수집변수](#수집변수)
     - [9-2. 필드 이름 바꾸기](#9-2-필드-이름-바꾸기)
     - [9-3. 파생 변수를 질의 함수로 바꾸기](#9-3-파생-변수를-질의-함수로-바꾸기)
+      - [변형 연산 ( Transformation Operation )](#변형-연산--transformation-operation-)
     - [9-4. 참조를 값으로 바꾸기](#9-4-참조를-값으로-바꾸기)
     - [9-5. 값을 참조로 바꾸기](#9-5-값을-참조로-바꾸기)
     - [9-6. 매직 리터럴 바꾸기](#9-6-매직-리터럴-바꾸기)
@@ -87,6 +88,69 @@ class Organization {
 6. 접근자들의 이름도 바꿔준다.
 
 ### 9-3. 파생 변수를 질의 함수로 바꾸기
+
+가변 데이터는 문제를 일으키는 골칫거리이다. 모든 가변 데이터를 없앨수는 없지만 효과가 좋은 방법으로, 값을 쉽게 계산할 수 있는 변수들을 모두 제거할 수 있다. ( 단, 변형 연산은 제외한다. )
+
+#### 변형 연산 ( Transformation Operation )
+
+1. 데이터 구조를 감싸며 그 데이터에 기초하여 계산한 결과를 속성으로 제공하는 객체.
+2. 데이터 구조를 받아 다른 데이터 구조로 변환해 반환하는 함수.
+
+```java
+class ProductionPlan {
+  private Integer production;
+  private List<Adjustment> adjustments;
+
+  ProductionPlan(Integer production) {
+    this.production = production;
+    this.adjustments = new HashList<>();
+  }
+
+  public Integer getProduction() {
+    return this.production;
+  }
+
+  public void applyAdjustment(anAdjustment) {
+    this.adjustments.push(anAdjustment);
+    this.production += anAjdustment.amount();
+  }
+}
+```
+
+```java
+class ProductionPlan {
+  private Integer initialProduction;
+  private Integer productAccumulator;
+  private List<Adjustment> adjustments;
+
+  ProductionPlan(Integer production) {
+    this.initialProduction = production;
+    this.productAccumulator = 0;
+    this.adjustments = new HashList<>();
+  }
+
+  public Integer getProduction() {
+    return this.initialProduction + calculatedProductionAccumulator();
+  }
+
+  public void applyAdjustment(anAdjustment) {
+    this.adjustments.push(anAdjustment);
+  }
+
+  public Integer calculatedProductionAccumulator() {
+    return this.adjustments.stream().reduce(0, Integer::sum);
+  }
+}
+```
+
+1. 변수 값이 갱신되는 지점을 모두 찾는다. 필요하면 변수 쪼개기를 활용해 각 갱신 지점에서 변수를 분리한다.
+2. 해당 변수의 값을 계산해주는 함수를 만든다.
+3. 해당 변수가 사용되는 모든 곳에 어서션을 추가하여 함수의 계산 결과가 변수의 값과 같은지 확인한다.
+   - 필요하면 변수 캡슐화하기를 적용하여 어서션이 들어갈 장소를 마련해준다.
+4. 테스트
+5. 변수를 읽는 코드를 모두 함수 호출로 대체한다.
+6. 테스트
+7. 변수를 선언하고 갱신하는 코드를 죽은 코드 제거하기로 없앤다.
 
 ### 9-4. 참조를 값으로 바꾸기
 
