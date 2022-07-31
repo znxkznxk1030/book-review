@@ -9,6 +9,8 @@
     - [9-3. 파생 변수를 질의 함수로 바꾸기](#9-3-파생-변수를-질의-함수로-바꾸기)
       - [변형 연산 ( Transformation Operation )](#변형-연산--transformation-operation-)
     - [9-4. 참조를 값으로 바꾸기](#9-4-참조를-값으로-바꾸기)
+      - [값 객체 (Value Object)](#값-객체-value-object)
+      - [동치성 비교 매서드](#동치성-비교-매서드)
     - [9-5. 값을 참조로 바꾸기](#9-5-값을-참조로-바꾸기)
     - [9-6. 매직 리터럴 바꾸기](#9-6-매직-리터럴-바꾸기)
   - [10. 조건부 로직 간소화](#10-조건부-로직-간소화)
@@ -153,6 +155,68 @@ class ProductionPlan {
 7. 변수를 선언하고 갱신하는 코드를 죽은 코드 제거하기로 없앤다.
 
 ### 9-4. 참조를 값으로 바꾸기
+
+필드를 값으로 다룬다면 내부 객체의 클래스를 수정하여 값 객체로 만들 수 있다. 값 객체는 불변 데이터가 되고, 불변 데이터 값은 프로그램 외부로 건내줘도 나중에 그 값이 나 몰래 바뀌어서 내부에 영향을 줄까 염려하지 않아도 된다.
+
+> 객체를 다른 객체에 중첩하면 내부객체를 참조 혹은 값으로 취급할 수 있다.
+>
+> - 참조 - 내부 객체는 그대로 둔 채 그 객체의 속성만 갱신하는 때
+> - 값 - 새로운 속성을 담은 객체로 기존 객체를 통채로 대체할 때
+
+```java
+class Product {
+  private Money price;
+
+  public void applyDiscount(int arg) {
+    price.setAmount(price.getAmount() - arg);
+  }
+}
+```
+
+```java
+class Product {
+  private Money price;
+
+  public void applyDiscount(int arg) {
+    price = new Money(price.getAmount() - arg, price.getCurrency());
+  }
+}
+```
+
+1. 후보 클래스가 불변인지, 혹은 불변이 될 수 있는지 확인한다.
+2. **각각의 세터를 하나씩 제거한다.**
+3. 이 값의 객체의 필드들을 사용하는 동치성 비교 매서드를 만든다.
+
+#### 값 객체 (Value Object)
+
+- <https://martinfowler.com/bliki/ValueObject.html>
+
+#### 동치성 비교 매서드
+
+- 대부분의 언어는 이런 상황에 사용할 수 있는 오버라이딩 가능한 동치성 비교 메서드를 제공한다. 보통은 해쉬코드 생성 매서드도 함께 오버라이드 해야한다.
+
+```java
+ public class Person {
+
+      private Integer age;
+      private String name;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return age == person.age &&
+                name.equals(person.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, age);
+    }
+
+}
+```
 
 ### 9-5. 값을 참조로 바꾸기
 
