@@ -12,6 +12,7 @@
       - [값 객체 (Value Object)](#값-객체-value-object)
       - [동치성 비교 매서드](#동치성-비교-매서드)
     - [9-5. 값을 참조로 바꾸기](#9-5-값을-참조로-바꾸기)
+      - [저장소 객체 Repository Object](#저장소-객체-repository-object)
     - [9-6. 매직 리터럴 바꾸기](#9-6-매직-리터럴-바꾸기)
   - [10. 조건부 로직 간소화](#10-조건부-로직-간소화)
     - [10-1. 조건문 분해하기](#10-1-조건문-분해하기)
@@ -219,6 +220,45 @@ class Product {
 ```
 
 ### 9-5. 값을 참조로 바꾸기
+
+논리적으로 같은 데이터를 물리적으로 복제해 사용할 때 가장 크게 문제되는 상황은 그 데이터를 갱신해야 할 때이다. 모든 복제본을 찾아서 빠짐없이 갱신해야 하며, 하나라도 놓치면 데이터 일관성이 깨져버린다.  
+이런 상황이라면 복제된 데이터를 모두 참조로 바꿔주는 것이 좋다. 이렇게 값을 참조로 바꾸면 엔티티 하나당 객체도 단 하나만 존재하게 된다.  
+이 때는 **객체들을 한데 모아놓고 클라이언트들의 접근을 관리해주는 일종의 저장소**가 필요해진다.
+
+```java
+Customer customer = new Customer(customerData);
+```
+
+```java
+Customer customer = customerRepository.get(customerData.id);
+```
+
+1. 같은 부류에 속하는 객체들을 보관할 저장소를 만든다.
+2. 생성자에서 이 부류의 객체들 중 특정 객체를 정확히 찾아내는 방법이 있는지 확인한다.
+3. 호스트 객체의 생성자들을 수정하여 필요한 객체를 이저장소에서 찾도록 한다. 하나 수정할 때 마다 테스트한다.
+
+#### 저장소 객체 Repository Object
+
+> 객체를 어디다 저장해야 할지는 애플리케이션에 따라 다르겠지만, 간단한 상황이라면 저장소 객체를 사용한다.
+
+```javascript
+let _repositoryData;
+
+export function initialize() {
+  _repositoryData = {};
+  _repositoryData.customers = new Map();
+}
+
+export function registerCustomer(id) {
+  if (!_repositoryData.customers.has(id))
+    _repositoryData.customers.set(id, new Customer(id));
+  return findCustomer(id);
+}
+
+export function findCustomer(id) {
+  return _repositoryData.customers.get(id);
+}
+```
 
 ### 9-6. 매직 리터럴 바꾸기
 
