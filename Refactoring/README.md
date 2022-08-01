@@ -14,6 +14,7 @@
     - [9-5. 값을 참조로 바꾸기](#9-5-값을-참조로-바꾸기)
       - [저장소 객체 Repository Object](#저장소-객체-repository-object)
     - [9-6. 매직 리터럴 바꾸기](#9-6-매직-리터럴-바꾸기)
+      - [매직 리터럴 Magic Literal](#매직-리터럴-magic-literal)
   - [10. 조건부 로직 간소화](#10-조건부-로직-간소화)
     - [10-1. 조건문 분해하기](#10-1-조건문-분해하기)
     - [10-2. 중복 조건식 통합하기](#10-2-중복-조건식-통합하기)
@@ -239,7 +240,7 @@ Customer customer = customerRepository.get(customerData.id);
 
 #### 저장소 객체 Repository Object
 
-> 객체를 어디다 저장해야 할지는 애플리케이션에 따라 다르겠지만, 간단한 상황이라면 저장소 객체를 사용한다.
+- 객체를 어디다 저장해야 할지는 애플리케이션에 따라 다르겠지만, 간단한 상황이라면 저장소 객체를 사용한다.
 
 ```javascript
 let _repositoryData;
@@ -261,6 +262,31 @@ export function findCustomer(id) {
 ```
 
 ### 9-6. 매직 리터럴 바꾸기
+
+#### 매직 리터럴 Magic Literal
+
+- 소스 코드에 등장하는 일반적인 리터럴 값을 말한다.
+- 아래 코드에서 9.81이 의미를 모른다면 숫자 자체로 의미를 명확히 알려주지 못하므로 매직 리터럴이라고 할 수 있다.
+- 상수롤 비교할 경우가 많다면 상수보단 함수를 사용하자.
+- 과유불급
+
+```java
+Double potentialEnergy(Double mass, Double height) {
+  return mass * 9.81 * height;
+}
+```
+
+```java
+private final Double STANDARD_GRAVITY = 9.81;
+
+Double potentialEnergy(Double mass, Double height) {
+  return mass * STANDARD_GRAVITY * height;
+}
+```
+
+1. 상수를 선언하고 매직 리터럴을 대입힌다.
+2. 해당 리터럴이 사용되는 곳을 모두 찾는다.
+3. 찾은 곳 각각에서 리터럴이 새 상수와 똑같은 의미로 쓰였는지 확인하여, 같은 의미라면 상수로 대체한 후 테스트한다.
 
 ## 10. 조건부 로직 간소화
 
