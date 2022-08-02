@@ -33,6 +33,7 @@
       - [명령-질의 분리 ( command-query seperation )](#명령-질의-분리--command-query-seperation-)
     - [11-2. 함수 매개변수화하기](#11-2-함수-매개변수화하기)
     - [11-3. 플래그 인수 제거하기](#11-3-플래그-인수-제거하기)
+      - [플래그 인수 ( flag argument )](#플래그-인수--flag-argument-)
     - [11-4. 객체 통째로 넘기기](#11-4-객체-통째로-넘기기)
     - [11-5. 매개변수를 질의 함수로 바꾸기](#11-5-매개변수를-질의-함수로-바꾸기)
     - [11-6. 질의 함수를 매개변수로 바꾸기](#11-6-질의-함수를-매개변수로-바꾸기)
@@ -719,6 +720,31 @@ void raise(Person aPerson, Double factor) {
 6. 비슷한 다른 함수를 호출하는 코드를 찾아 매개변수화된 함수를 호출하도록 하나씩 수정한다. 하나 수정할 때 마다 테스트한다.
 
 ### 11-3. 플래그 인수 제거하기
+
+#### 플래그 인수 ( flag argument )
+
+- 호출되는 함수가 실행할 로직을 호출하는 쪽에서 선택하기 위해 전달하는 인수
+
+```java
+void setDimension(String name, Integer value) {
+  if (name.equals("height")) {
+    this.height = value;
+  }
+
+  if (name.equals("width")) {
+    this.width = value;
+  }
+}
+```
+
+```java
+void setHeight(Integer value) { this.height = value; }
+void setWidth(Integer value) { this.width = value; }
+```
+
+1. 매개변수로 주어질 수 있는 값 각각에 대응하는 명시적 함수들을 생성한다.
+   - 추가되는 함수에 깔끔한 분배 조건문이 포함되어 있다면 조건문 분해하기 로 명시적 함수들을 생성하자. 그렇지 않다면 래핑 함수 형태로 만든다.
+2. 원래 함수를 호출하는 코드들을 모두 찾아서 각 리터럴 값에 대응되는 명시적 함수를 호출하도록 수정한다.
 
 ### 11-4. 객체 통째로 넘기기
 
