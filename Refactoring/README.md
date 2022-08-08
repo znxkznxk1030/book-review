@@ -832,6 +832,30 @@ Double targetTemperature(Plan aPlan, Double currentTemperature) { }
 
 ### 11-7. 세터 제거하기
 
+```java
+class Person {
+  private String name;
+
+  public String getName () {
+    return this.name;
+  }
+
+  public void setName (String name) {
+    this.name = name;
+  }
+}
+```
+
+```java
+class Person {
+  private String name;
+
+  public String getName () {
+    return this.name;
+  }
+}
+```
+
 ### 11-8. 생성자를 팩터리 함수로 바꾸기
 
 ### 11-9. 함수를 명령으로 바꾸기
