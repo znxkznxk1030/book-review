@@ -44,6 +44,7 @@
     - [11-8. 생성자를 팩터리 함수로 바꾸기](#11-8-생성자를-팩터리-함수로-바꾸기)
       - [생성자의 제약](#생성자의-제약)
     - [11-9. 함수를 명령으로 바꾸기](#11-9-함수를-명령으로-바꾸기)
+      - [명령 ( 또는 명령 객체 )](#명령--또는-명령-객체-)
     - [11-10. 명령을 함수로 바꾸기](#11-10-명령을-함수로-바꾸기)
     - [11-11. 수정된 값 반환하기](#11-11-수정된-값-반환하기)
     - [11-12. 오류 코드를 예외로 바꾸기](#11-12-오류-코드를-예외로-바꾸기)
@@ -895,8 +896,54 @@ Engineer leadEngineer = createEngineer(document.getLeadEngineer());
 3. 하나씩 수정할 때마다 테스트한다.
 4. 생성자의 가시범위가 최소가 되도록 제한한다.
 
-
 ### 11-9. 함수를 명령으로 바꾸기
+
+- Undo 같은 보조연산 제공 가능.
+- 수명주기를 더 정밀하게 제어하는데 필요한 매개변수를 만들어주는 메서드를 제공 가능.
+- 일급 함수를 흉내낼 수 있다.
+- 단, 복잡성은 커지게 된다.
+
+#### 명령 ( 또는 명령 객체 )
+
+- 함수를 그 함수만을 위한 객체 안으로 캡슐화하면 더 유용해지는 상황이 있다. 이런 객체를 가르켜 '명령 객체' 또는 '명령'이라고 한다.
+- 명령 패턴
+
+```java
+Integer score(Candidate candidate, Exam medicalExam, Guide scoringGuide) {
+  Integer result = 0;
+  Integer healthLevel = 0;
+  // omit
+}
+```
+
+```java
+class Scorer {
+  private Candidate candidate;
+  private Exam medicalExam;
+  private Guide scoringGuide;
+
+  private Integer result;
+  private healthLevel = 0;
+
+  constructor (Candidate candidate, Exam medicalExam, Guide scoringGuide) {
+    this.candidate = candidate;
+    this.medicalExam = medicalExam;
+    this.scoringGuide = scoringGuide;
+  }
+
+  execute() {
+    this.result = 0;
+    this.healthLevel = 0;
+    // omit;
+  }
+}
+```
+
+1. 대상 함수의 기능을 옮길 빈 클래스를 만든다. 클래스 이름은 함수이름에 기초해 짓는다.
+2. 방금 생성한 빈 클래스로 함수를 옮긴다.
+   - 리팩터링이 끝날 때까지는 원래 함수를 전달하는 함수 역할로 남긴다.
+   - 명령 관련 이름은 사용하는 프로그래밍 언어의 명명규칙을 따른다. ( 규칙이 없다면 'execute' 혹은 'call' )
+3. 함수의 인수들 각각은 명령의 필드로 만들어 생성자를 통해 설정할지 고민해본다.
 
 ### 11-10. 명령을 함수로 바꾸기
 
