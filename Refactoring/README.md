@@ -947,6 +947,41 @@ class Scorer {
 
 ### 11-10. 명령을 함수로 바꾸기
 
+- 명령 객체는 큰연산을 작은 여러개의 메서드로 쪼개고 필드를 이용하는 것에 효율적이다.
+- 로직이 크게 복잡하지 않다면 명령은 장점보다 단점이 더 크니 평범한 함수로 바꿔주는 것이 낫다.
+
+```java
+class ChargeCalculator {
+  private Customer customer;
+  private Integer usage;
+
+  public ChargeCalculator(Customer customer, Integer usage) {
+    this.customer = customer;
+    this.usage = usage;
+  }
+
+  Integer execute() {
+    return customer.getRate() * usage;
+  }
+}
+```
+
+```java
+Integer execute(Customer customer, Usage usage) {
+  return customer.getRate();
+}
+```
+
+1. 명령을 생성하는 코드와 명령의 실행 메서드를 호출하는 코드를 함께 함수로 추출 한다.
+   - 이 함수가 바로 명령을 대체할 함수이다.
+2. 명령의 실행 함수가 호출하는 보조 메서드를 각각을 인라인 한다.
+   - 보조 메서드가 값을 반환한다면 함수 인라인에 앞서 변수 추출하기를 적용한다.
+3. 함수 선언 바꾸기를 적용하여 생성자의 매개변수 모두를 명령의 실행 메서드로 옮긴다.
+4. 명령의 실행 메서드에서 참조하는 필드를 대신 대응하는 매개변수를 사용하게끔 바꾼다. 하나씩 수정 할 때마다 테스트한다.
+5. 생성자 호출과 명령의 실행 메서드 호출을 호출자 안으로 인라인 한다.
+6. 테스트한다.
+7. 죽은 코드 제거하기로 명령 클래스를 없앤다.
+
 ### 11-11. 수정된 값 반환하기
 
 ### 11-12. 오류 코드를 예외로 바꾸기
