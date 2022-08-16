@@ -1144,6 +1144,38 @@ class Engineer extends Employee { ... }
 
 ### 12-2. 필드 올리기
 
+- 필드들이 비슷한 방식으로 쓰인다고 판단되면 슈퍼클래스로 끌어올리자.
+- 데이터 중복선언을 없앨 수 있다.
+- 해당 필드를 사용하는 동작을 서브클래스에서 슈퍼클래스로 옮길 수 있다.
+
+```java
+class Employee { ... }
+
+class Salesperson extends Employee {
+  private String name;
+}
+
+class Engineer extends Employee {
+  private String name;
+}
+```
+
+```java
+class Employee {
+  protected String name;
+}
+
+class Salesperson extends Employee { ... }
+class Engineer extends Employee { ... }
+```
+
+1. 후보 필드들을 사용하는 곳 모두가 그 필드들을 똑같은 방식으로 사용하는지 면밀히 살핀다.
+2. 필드들의 이름이 각기 다르다면 똑같은 이름으로 바꾼다. ( 필드 이름 바꾸기 )
+3. 슈퍼클래스에 새로운 필드를 생성한다.
+   - 서브클래스에서 이 필드에 접근 가능해야한다. ( protected 로 선언 )
+4. 서브클래스의 필드들을 제거한다.
+5. 테스트한다.
+
 ### 12-3. 생성자 본문 올리기
 
 ### 12-4. 메서드 내리기
