@@ -1178,6 +1178,44 @@ class Engineer extends Employee { ... }
 
 ### 12-3. 생성자 본문 올리기
 
+- 생성자는 메서드와 달리 다루기 까다롭기에 하는 일에 제약을 두는 편이다.
+- 생성자를 팩터리 함수로 바꾸기 를 고려해본다.
+
+```java
+class Party { ... }
+
+class Employee extends Party {
+  public Employee(String name, String id, int monthlyCost) {
+    super();
+    this.id = id;
+    this.name = name;
+    this.monthlyCost = monthlyCost;
+  }
+}
+```
+
+```java
+class Party {
+  public Party(String name) {
+    this.name = name;
+  }
+}
+
+class Employee extends Party {
+  public Employee(String name, String id, int monthlyCost) {
+    super(name);
+    this.id = id;
+    this.monthlyCost = monthlyCost;
+  }
+}
+```
+
+1. 슈퍼클래스에 생성자가 없다면 하나 정의한다. 서브클래스의 생성자들에서 이 생성자가 호출되는지 확인한다.
+2. 문장 슬라이드하기 로 공통 문장 모두 super() 호출 직후로 옮긴다.
+3. 공통 코드를 슈퍼클래스에 추가하고 서브클래스들에서는 제거한다. 생성자 매개변수 중 공통 코드에서 참조하는 값들을 모두 super()로 건낸다.
+4. 테스트한다.
+5. 생성자 시작 부분으로 옮길 수 없는 공통 코드에는 함수 추출하기 외 메서드 올리기 를 차례로 적용한다.
+
 ### 12-4. 메서드 내리기
 
 ### 12-5. 필드 내리기
