@@ -1218,6 +1218,38 @@ class Employee extends Party {
 
 ### 12-4. 메서드 내리기
 
+- 특정 서브클래스에서만 사용되는 메서드는 슈퍼클래스에서 제거하는 것이 깔끔하다.
+- 단, 해당 메소드를 제공할 서브클래스가 호출자가 무엇인지 알고있을때만 가능하다.
+- 아니라면 서브클래스마다 다르게 동작하는 조건부 로직을 다형성으로 바꿔야 한다.
+
+```java
+class Employee {
+  public String guota() {
+    return "...";
+  }
+}
+
+class Engineer extends Employee { ... }
+class Salesperson extends Employee { ... }
+```
+
+```java
+class Employee { ... }
+
+class Engineer extends Employee { ... }
+class Salesperson extends Employee {
+  public String guota() {
+    return "...";
+  }
+ }
+```
+
+1. 대상 메서드를 모든 서브클래스에 복사한다.
+2. 슈퍼클래스에서 그 메서드를 제거한다.
+3. 테스트한다.
+4. 이 메서드를 사용하지 않는 모든 서브 클래스에서 제거한다.
+5. 테스트한다.
+
 ### 12-5. 필드 내리기
 
 ### 12-6. 타입 코드를 서브클래스로 바꾸기
