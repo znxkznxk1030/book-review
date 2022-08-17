@@ -1224,7 +1224,7 @@ class Employee extends Party {
 
 ```java
 class Employee {
-  public String guota() {
+  public String quota() {
     return "...";
   }
 }
@@ -1238,7 +1238,7 @@ class Employee { ... }
 
 class Engineer extends Employee { ... }
 class Salesperson extends Employee {
-  public String guota() {
+  public String quota() {
     return "...";
   }
  }
@@ -1251,6 +1251,30 @@ class Salesperson extends Employee {
 5. 테스트한다.
 
 ### 12-5. 필드 내리기
+
+```java
+class Employee {
+  protected String quota();
+}
+
+class Engineer extends Employee { ... }
+class Salesperson extends Employee { ... }
+```
+
+```java
+class Employee { ... }
+
+class Engineer extends Employee { ... }
+class Salesperson extends Employee {
+  private String quota();
+ }
+```
+
+1. 대상 필드를 모든 서브클래스에 정의한다.
+2. 슈퍼클래스에서 그 필드를 제거한다.
+3. 테스트한다.
+4. 이 필드를 사용하지 않는 모든 서브클래스에서 제거한다.
+5. 테스트한다.
 
 ### 12-6. 타입 코드를 서브클래스로 바꾸기
 
