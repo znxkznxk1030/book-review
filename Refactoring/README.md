@@ -1278,6 +1278,39 @@ class Salesperson extends Employee {
 
 ### 12-6. 타입 코드를 서브클래스로 바꾸기
 
+- 타입 코드만으로 특별히 불편한 상황은 없지만 그 이상이 필요할때가 있다. ( 서브클래스가 그 이상이다. )
+- 조건에 따라 다르게 동작하도록 해주는 다형성을 제공한다.
+- 특정 타입만 필요한 필드가 생길시, 서브클래스를 이용하면 해당 서브클래스만 필드를 가지도록 할 수 있다. ( ISP )
+
+```java
+Employee createEmployee(String name, String type) {
+  return new Employee(name, type);
+}
+```
+
+```java
+Employee createEmployee(String name, String type) {
+  switch ( type ) {
+    case "engineer" :
+      return new Engineer(name);
+    case "salesperson" :
+      return new Salesperson(name)
+    case "manager" :
+      return new Manager(name);
+  }
+}
+```
+
+1. 타입 코드 필드를 자가 캡슐화한다.
+2. 타입 코드 값 하나를 선택하여 그 값에 해당하는 서브클래스를 만든다. 타입 코드 게터 메서드를 오버라이드하여 해당 타입 코드의 리터럴 값을 반환하게 한다.
+3. 매개 변수로 받은 타입 코드와 방금 만든 서브클래스를 맵핑하는 선택 로직을 만든다.
+   - 직접 상속일 때는 생성자를 팩터리 함수로 바꾸기를 적용하고 선택 로직을 팩터리에 넣는다. 간접 상혹일 때는 선택 로직을 생성자에 두면 될 것이다.
+4. 테스트한다.
+5. 타입 코드 값 각각에 대해 서브클래스 생성과 선택 로직 추가를 반복한다. 클래스 하나가 완성될 때마다 테스트한다.
+6. 타입 코드 필드를 제거한다.
+7. 테스트 한다.
+8. 타입 코드 접근자를 이용하는 메서드 모두에 메서드 내리기와 조건부 로직을 다형성으로 바꾸기를 적용한다.
+
 ### 12-7. 서브클래스 제거하기
 
 ### 12-8. 슈퍼클래스 추출하기
