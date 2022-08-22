@@ -1421,4 +1421,34 @@ class Employee { ... }
 
 ### 12-10. 서브클래스를 위임으로 바꾸기
 
+```java
+class Order {
+  public Integer daysToShip() {
+    return this.warehouse.daysToShip;
+  }
+}
+
+class PriorityOrder extends Order {
+  public Integer daysToShip() {
+    return this.priorityPlan.daysToShip;
+  }
+}
+```
+
+```java
+class Order {
+  public Integer daysToShip() {
+    return (this.priorityDelegate)
+      ? this.priorityDelegate.daysToShip;
+      : this.warehouse.daysToShip;
+  }
+}
+
+class PriorityOrderDelegate {
+  public Integer daysToShip() {
+    return this.priorityPlan.daysToShip;
+  }
+}
+```
+
 ### 12-11. 슈퍼클래스를 위임으로 바꾸기
