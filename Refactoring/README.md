@@ -1313,7 +1313,91 @@ Employee createEmployee(String name, String type) {
 
 ### 12-7. 서브클래스 제거하기
 
+```java
+class Person {
+  public String genderCode() {
+    return "X";
+  }
+}
+
+class Male extends Person {
+  @Override
+  public String genderCode() {
+    return "M";
+  }
+}
+
+class Femail extends Person {
+  @Override
+  public String genderCode() {
+    return "F";
+  }
+}
+```
+
+```java
+class Person {
+  private genderCode;
+
+  public String genderCode() {
+    return this.genderCode;
+  }
+}
+```
+
+1. 서브클래스의 생성자를 팩토리 함수로 바꾼다.
+   - 생성자를 사용하는 측에서 데이터 필드를 이용해 어떤 서브클래스를 생성할지 결정한다면 그 결정로직을 슈퍼클래스의 팩터리 메서드에 넣는다.
+2. 서브클래스의 타입을 검사하는 코드가 있다면 그 검사 코드에 함수 추출하기와 함수 옮기기를 차례로 적용하여 슈퍼클래스로 옮긴다. 하나 변경할 때마다 테스트한다.
+3. 서브클래스의 타입을 나타내는 필드를 슈퍼클래스에 만든다.
+4. 서브클래스를 참조하믄 메서드가 방금 만든 타입 필드를 이용하도록 수정한다.
+5. 서브클래스를 지운다.
+6. 테스트한다.
+
 ### 12-8. 슈퍼클래스 추출하기
+
+- 상속은 프로그램이 성장하면서 깨어쳐가게 되며, 슈퍼클래스로 끌어올리고 싶은 공통 요소를 찾았을 때 수행하는 사례가 잦았다.
+- 슈퍼클래스 추출하기 대안으로는 클래스 추출하기가 있다. ( 상속 vs 위임 )
+- 슈퍼클래스를 위임으로 바꾸기는 쉬우니, 슈퍼클래스 추출하기를 먼저 적용하는 것을 권장한다.
+
+```java
+class Department {
+  public Integer totalAnnualCost() { ... }
+  public String getName() { ... }
+  public Integer headCount() { ... }
+}
+
+class Employee {
+  public Integer annualCost() { ... }
+  public String getName() { ... }
+  public Integer getId() { ... }
+}
+```
+
+```java
+class Party {
+  public Integer annualCost() { ... }
+  public String getName() { ... }
+}
+
+class Department extends Party {
+  @Override
+  public Integer annualCost() { ... }
+  public Integer headCount() { ... }
+}
+
+class Employee {
+  @Override
+  public Integer annualCost() { ... }
+  public Integer getId() { ... }
+}
+```
+
+1. 빈 슈퍼클래스를 만든다. 원래의 클래스들이 새 클래스를 상속하도록 한다.
+   - 필요하다면 생성자에 함수 선언 바꾸기를 적용한다.
+2. 테스트한다.
+3. 생성자 본문 올리기, 메서드 올리기, 필드 올리기를 차례로 적용하여 공통 원소를 슈퍼클래스로 옮긴다.
+4. 서브클래스에 남은 메서드들을 검토한다. 공통되는 부분이 있다면 함수로 추출한 다음 메서드 올리기를 적용한다.
+5. 원래 클래스들을 사용하는 코드를 검토하여 슈퍼클래스의 인터페이스를 사용하게 할지 고민해본다.
 
 ### 12-9. 계층 합치기
 
