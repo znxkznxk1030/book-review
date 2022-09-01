@@ -88,13 +88,13 @@
 
 ```java
 class Account {
-  String overdraftCharge() { ... }
+  Double overdraftCharge() { ... }
 }
 ```
 
 ```java
 class AccountType {
-  String overdraftCharge() { ... }
+  Double overdraftCharge() { ... }
 }
 ```
 
