@@ -10,6 +10,7 @@
     - [8-5. 인라인 코드를 함수 호출로 바꾸기](#8-5-인라인-코드를-함수-호출로-바꾸기)
       - [함수의 장점](#함수의-장점)
     - [8-6. 문장 슬라이드하기](#8-6-문장-슬라이드하기)
+      - [문장 슬라이드가 안되는 상황](#문장-슬라이드가-안되는-상황)
     - [8-7. 반복문 쪼개기](#8-7-반복문-쪼개기)
     - [8-8. 반복문을 파이프라인으로 바꾸기](#8-8-반복문을-파이프라인으로-바꾸기)
     - [8-9. 죽은 코드 제거하기](#8-9-죽은-코드-제거하기)
@@ -227,6 +228,33 @@ boolean appliesToMass = states.contains("MA");
 2. 테스트한다.
 
 ### 8-6. 문장 슬라이드하기
+
+- 관련된 코드들이 가까이 모여 있다면 이해하기가 더 쉽다.
+
+#### 문장 슬라이드가 안되는 상황
+
+1. 코드에서 참조하는 요소를 선언하는 문장 앞으로는 이동할 수 없다.
+2. 코드를 참조하는 요소 뒤로 이동 할 수 없다.
+3. 코드에서 참조하는 요소를 수정하는 문장을 건너 뛸 수 없다.
+4. 코드가 수정하는 요소를 참조하는 요소를 건너 뛸 수 없다.
+
+```java
+Plan pricingPlan = retrievePricingPlan();
+Order order = retrieveOrder();
+Double charge;
+Unit chargePerUnit = pricingPlan.getUnit();
+```
+
+```java
+Plan pricingPlan = retrievePricingPlan();
+Unit chargePerUnit = pricingPlan.getUnit();
+Order order = retrieveOrder();
+Double charge;
+```
+
+1. 코드 조각을 이동할 위치를 찾는다.
+2. 코드 조각을 잘라내어 목표 위치에 붙여 넣는다.
+3. 테스트한다.
 
 ### 8-7. 반복문 쪼개기
 
