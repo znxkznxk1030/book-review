@@ -141,7 +141,7 @@ class Customer {
 
 ### 8-3. 문장을 함수로 옮기기
 
-- 특정 함수를 호출하는 코드가 나올 때마다 그 앞이나 뒤에서 똑같은 코드가 추가로 실행되는 모습을 보면, 나는 그 반복되는 부분을 피호출 함수로 합치는 방법을 궁리한다.
+- 특정 함수를 호출하는 코드가 나올 때마다 그 앞이나 뒤에서 똑같은 코드가 추가로 실행되는 모습을 보면 반복되는 부분을 피호출 함수로 합치는 방법을 궁리해보자
 
 ```javascript
 result.push(`<p>제목: ${person.photo.title}</p>`);
@@ -177,6 +177,29 @@ function photoData(aPhoto) {
 6. 새로운 함수의 이름을 원래 함수의 이름으로 바꿔준다.
 
 ### 8-4. 문장을 호출한 곳으로 옮기기
+
+```javascript
+emitPhotoCata(outStream, person.photo);
+
+function emitPhotoData(outStream, photo) {
+  outStream.write(`<p>제목: ${photo.title}</p>\n`);
+  outStream.write(`<p>위치: ${photo.location}</p>\n`);
+}
+```
+
+```javascript
+emitPhotoCata(outStream, person.photo);
+outStream.write(`<p>제목: ${photo.title}</p>\n`);
+
+function emitPhotoData(outStream, photo) {
+  outStream.write(`<p>위치: ${photo.location}</p>\n`);
+}
+```
+
+1. 간단한 상황이라면 피호출 함수를 잘라내어 호출 함수에 복사해 넣는다.
+2. 복잡한 상황이라면 이동을 원치 않는 부분을 잘라내어 함수로 추출한다.
+3. 원래 함수를 인라인 한다.
+4. 추출된 함수의 이름을 원래 함수의 이름으로 변경한다.
 
 ### 8-5. 인라인 코드를 함수 호출로 바꾸기
 
