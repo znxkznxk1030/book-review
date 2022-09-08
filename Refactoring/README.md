@@ -294,6 +294,8 @@ averageAge = averageAge / people.size();
 
 ### 8-8. 반복문을 파이프라인으로 바꾸기
 
+[더 자세히 알아보기](https://martinfowler.com/articles/refactoring-pipelines.html)
+
 ```java
 List<String> names = new ArrayList<>();
 
