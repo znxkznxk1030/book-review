@@ -264,27 +264,27 @@ Double charge;
 double averageAge = 0;
 double totalSalary = 0;
 
-for (People p : peopleList) {
+for (Person p : people) {
   averageAge += p.getAge();
   totalSalary += p.getSalary();
 }
 
-averageAge = averageAge / peopleList.size();
+averageAge = averageAge / people.size();
 ```
 
 ```java
 double totalSalary = 0;
 
-for (People p : peopleList) {
+for (Person p : people) {
   totalSalary += p.getSalary();
 }
 
 double averageAge = 0;
-for (People p : peopleList) {
+for (Person p : people) {
   averageAge += p.getAge();
 }
 
-averageAge = averageAge / peopleList.size();
+averageAge = averageAge / people.size();
 ```
 
 1. 반복문을 복제해 두 개로 만든다.
@@ -294,7 +294,35 @@ averageAge = averageAge / peopleList.size();
 
 ### 8-8. 반복문을 파이프라인으로 바꾸기
 
+```java
+List<String> names = new ArrayList<>();
+
+for ( Person p : people ) {
+  if ( p.getJob().equals("programmer") )
+    names.add(p.getName())
+}
+```
+
+```java
+List<String> names = people.stream()
+                      .filter(p -> { return p.getJob().equals("programmer") })
+                      .map(i -> { return i.getName() })
+                      .collect(Collectors.toList())
+```
+
+1. 반복문에서 사용하는 컬렉션을 가리키는 변수를 하나 만든다.
+2. 반복문의 첫 줄부터 시작해서, 각각의 단위 행위를 절절한 컬렉션 파이프라인 연산으로 대체한다.
+3. 반복문의 모든 동작을 대체했다면 반복문 자체를 지운다.
+
 ### 8-9. 죽은 코드 제거하기
+
+```java
+
+```
+
+```java
+
+```
 
 ## 9. 데이터 조직화
 
