@@ -258,6 +258,40 @@ Double charge;
 
 ### 8-7. 반복문 쪼개기
 
+- 리펙터링과 최적화를 구분하자. 최적화는 코드를 깔끔히 정리한 이후에 수행하자.
+
+```java
+double averageAge = 0;
+double totalSalary = 0;
+
+for (People p : peopleList) {
+  averageAge += p.getAge();
+  totalSalary += p.getSalary();
+}
+
+averageAge = averageAge / peopleList.size();
+```
+
+```java
+double totalSalary = 0;
+
+for (People p : peopleList) {
+  totalSalary += p.getSalary();
+}
+
+double averageAge = 0;
+for (People p : peopleList) {
+  averageAge += p.getAge();
+}
+
+averageAge = averageAge / peopleList.size();
+```
+
+1. 반복문을 복제해 두 개로 만든다.
+2. 반복문이 중복되어 생기는 부수효과를 파악해서 제거한다.
+3. 테스트한다.
+4. 완료됐으면, 각 반복문을 함수로 추출할지 고민해본다.
+
 ### 8-8. 반복문을 파이프라인으로 바꾸기
 
 ### 8-9. 죽은 코드 제거하기
