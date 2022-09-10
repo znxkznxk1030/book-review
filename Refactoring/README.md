@@ -91,6 +91,42 @@
 
 ### 7-1. 레코드 캡슐화하기
 
+```java
+class Organization {
+  public String name = "애크미 구스베리";
+  public String country = "GB";
+}
+```
+
+```java
+class Organization {
+  private String name;
+  private String country;
+
+  Organization(String name, String country) {
+    this.name = name;
+    this.country = country;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getCountry() {
+    return country;
+  }
+
+  public void setCountry() {
+    this.country = country;
+  }
+
+}
+```
+
 ### 7-2. 컬렉션 캡슐화하기
 
 ### 7-3. 기본형을 객체로 바꾸기
