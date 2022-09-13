@@ -212,6 +212,39 @@ orders.filger(o -> {
 
 ### 7-4. 임시 변수를 질의 함수로 바꾸기
 
+- 변수 대신 함수로 만들어두면 비슷한 계산을 수행하는 다른 함수에서도 사용할 수 있어 코드 중복이 줄어든다.
+- 클래스 안에서 적용할 때 효과가 가장 크다. 클래스틑 추출할 메서들에 공유 컨텍스트를 제공하기 때문이다.
+- 읽기만 하는 변수에 사용하여야 한다.
+
+```java
+double basePrice = this.quantity * this.itemPrice;
+
+if ( basePrice > 1000 ) {
+  return basePrice * 0.95;
+} else {
+  return basePrice * 0.98;
+}
+```
+
+```java
+double getBasePrice() {
+  return this.quantity * this.itemPrice;
+}
+...
+if ( getBasePrice() > 1000 ) {
+  return basePrice * 0.95;
+} else {
+  return basePrice * 0.98;
+}
+```
+
+1. 변수가 사용되기 전에 값이 확실히 결정되는지, 변수를 사용할 때마다 계산 로직이 매번 다른 결과를 내지는 않는지 확인한다.
+2. 읽기전용으로 만들 수 있는 변수는 읽기전용으로 만든다.
+3. 테스트한다.
+4. 변수 대입문을 함수로 추출한다.
+5. 테스트한다.
+6. 변수 인라인하기로 임시 변수를 제거한다.
+
 ### 7-5. 클래스 추출하기
 
 ### 7-6. 클래스 인라인하기
