@@ -40,3 +40,12 @@
 
 - 객체를 만들면서 시작하는 것이 아니라 테스트를 먼저 만들어야 한다.
 - 테스트를 작성할 때는 오퍼레이션의 완벽한 인터페이스에 대해 상상해보는 것이 좋다.
+- 가능한 최선의 API에서 시작해서 거꾸로 작업하는 것이 애초부터 일을 복잡하고 보기 흉하며 '현실적' 이게 하는 것보다 낫다.
+
+```java
+public void testMultiiplication() {
+  Dollar five = new Dollar(5);
+  five.times(2);
+  assertEquals(10, five.amount);
+}
+```
