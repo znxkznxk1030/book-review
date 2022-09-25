@@ -9,6 +9,8 @@
       - [1-1 테스트를 통과시키기 위한 주기](#1-1-테스트를-통과시키기-위한-주기)
       - [1-1. 지금까지 한 작업들](#1-1-지금까지-한-작업들)
   - [2. 타락한 객체](#2-타락한-객체)
+    - [2-1. 테스트 작성하기](#2-1-테스트-작성하기)
+    - [2-1. 테스트 통과하기](#2-1-테스트-통과하기)
 
 ## 1. 화폐 예제
 
@@ -171,3 +173,85 @@ void times (int multiplier) {
 - 새로운 할일들을 한번에 처리하는 대신 할일 목록에 추가하고 넘어갔다.
 
 ## 2. 타락한 객체
+
+---
+
+```text
+기능 리스트
+- [ ] $5 + 10CHF = $10
+- [x] $5 x 2 = $10
+- [ ] amount를 private으로 만들기
+- [ ] Dollar 의 side effect ? *
+- [ ] Money 반올림 ?
+```
+
+---
+
+```java
+class Dollar {
+  int amount;
+  Dollar (int amount) {
+    this.amount = amount;
+  }
+
+  void times (int multiplier) {
+    amount *= multiplier;
+  }
+}
+```
+
+- Dollar에 대해서 연산을 수행한 수에 해당 Dollar의 값이 바뀌는 것이 이상하다.
+
+### 2-1. 테스트 작성하기
+
+```java
+public void testMultiplicatioin() {
+  Dollar five = new Dollar(5);
+  five.times(2);
+  assartEquals(10, product.amount);
+  five.times(3);
+  assartEquals(15, procuet.amount);
+}
+```
+
+- times()를 처음 호출한 이후에는 five는 더 이상 5가 아니다. 그렇다면 times()에서 새로운 객체를 반환하게 만들면 어떨까?
+- 어떤 구현이 올바른가에 대한 우리 추측이 완벽하지 못한 것과 마찬가지로 올바른 인터페이스에 대한 추측 역시 절대 완벽하기 못하다.
+
+```java
+public void testMultiplication() {
+  Dollar five = new Dollar(5);
+  Dollar product = five.times(2);
+  assartEquals(10, product.amount);
+  product = five.times(3);
+  assartEquals(15, procuet.amount);
+}
+```
+
+### 2-1. 테스트 통과하기
+
+```java
+  void times (int multiplier) {
+    amount *= multiplier;
+    return null;
+  }
+```
+
+- 가짜로 구현하기
+- 상수를 반환하게 만들고 진짜 코드를 얻을 때까지 단계적으로 상수를 변수로 바꾸어 간다.
+
+```java
+  void times (int multiplier) {
+    return new Dollar(amount * multiplier);
+  }
+```
+
+- 명백한 구현 사용하기: 실제 구현을 입력한다.
+
+```text
+기능 리스트
+- [ ] $5 + 10CHF = $10
+- [x] $5 x 2 = $10
+- [ ] amount를 private으로 만들기
+- [x] Dollar 의 side effect ?
+- [ ] Money 반올림 ?
+```
