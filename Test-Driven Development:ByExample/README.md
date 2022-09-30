@@ -14,6 +14,8 @@
     - [2-1. 지금까지 한 작업들](#2-1-지금까지-한-작업들)
   - [3. 모두를 위한 평등](#3-모두를-위한-평등)
     - [값 객체](#값-객체)
+    - [3-1. 테스트 작성하기](#3-1-테스트-작성하기)
+      - [삼각측량](#삼각측량)
 
 ## 1. 화폐 예제
 
@@ -112,17 +114,19 @@ class Dollar {
 4. 모든 테스트를 실행해서 테스트가 성공하는 것을 확인한다.
 5. 중복을 제거하기 위해 리팩토링을 한다.
 
+- 이렇게 하면 최소의 작업으로 'testMultiiplication' 테스트를 통과시킬수 있다.
+
 ```java
 int amount = 10;
 ```
 
-- 이렇게 하면 최소의 작업으로 'testMultiiplication' 테스트를 통과시킬수 있다.
+- 10은 사실 5와 2를 곱한값이다.
 
 ```java
 int amount = 5 * 2;
 ```
 
-- 10은 사실 5와 2를 곱한값이다.
+- 5와 2를 곱한는 것을 times 메서드로 옮긴다
 
 ```java
 int amount;
@@ -132,7 +136,7 @@ void times(int multiplier) {
 }
 ```
 
-- 5와 2를 곱한는 것을 times 메서드로 옮긴다
+- amount는 생성자에서 넘어가는 값이다
 
 ```java
 Dollar (int amount) {
@@ -144,7 +148,7 @@ void times (int multiplier) {
 }
 ```
 
-- amount는 생성자에서 넘어가는 값이다
+- multiplier의 값이 2이므로 상수는 이 인자로 대체할 수 있다
 
 ```java
 void times (int multiplier) {
@@ -152,7 +156,7 @@ void times (int multiplier) {
 }
 ```
 
-- multiplier의 값이 2이므로 상수는 이 인자로 대체할 수 있다
+- 자바 문법을 완벽히 알고 있다는 것을 보여주자
 
 ```java
 void times (int multiplier) {
@@ -160,7 +164,6 @@ void times (int multiplier) {
 }
 ```
 
-- 자바 문법을 완벽히 알고 있다는 것을 보여주자
 
 ---
 
@@ -298,7 +301,63 @@ public void testMultiplication() {
 - [ ] amount를 private으로 만들기
 - [x] Dollar 의 side effect
 - [ ] Money 반올림 ?
-- [ ] equals() *
+- [ ] equals() \*
 - [ ] hashCode()
+
+---
+
+> 만약 Dollar를 해시 테이블의 키로 쓸 생각이라면 equals()를 구현할 때에 hashCode()를 같이 구현해야 한다.
+
+### 3-1. 테스트 작성하기
+
+```java
+public void testEquality() {
+  assertTrue(new Dollar(5).equals(new Dollar(5)));
+}
+```
+
+- 가짜로 구현 ( true 반환 )
+
+```java
+public boolean equals(Object object) {
+  return true;
+}
+```
+
+#### 삼각측량
+
+- 가장 신중한 세 번째 방법.
+- 라디오 신호를 두 수신국이 감지하고 있을 때 수신국 사이의 거리와 방향을 안다면 신호의 거리와 방위를 알 수 있는 계산법
+- 삼각측량을 이용하려면 예제가 두 개 있어야 코드를 일반화 할 수 있다.
+
+```java
+public void testEquality() {
+  assertTrue(new Dollar(5).equals(new Dollar(5)));
+  assertFalse(new Dollar(5).equals(new Dollar(6)));
+}
+```
+
+- 동치성 일반화 하기
+
+```java
+public boolean equals(Object object) {
+  Dollar dollar = (Dollar) object;
+  return amount == dollar.amount;
+}
+```
+
+---
+
+기능 리스트
+
+- [ ] $5 + 10CHF = $10
+- [x] $5 x 2 = $10
+- [ ] amount를 private으로 만들기
+- [x] Dollar 의 side effect
+- [ ] Money 반올림 ?
+- [x] equals()
+- [ ] hashCode()
+- [ ] Equal null
+- [ ] Equal object
 
 ---
