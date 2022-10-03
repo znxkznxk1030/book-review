@@ -17,6 +17,7 @@
     - [3-1. 테스트 작성하기](#3-1-테스트-작성하기)
       - [삼각측량](#삼각측량)
     - [3-1. 지금까지 한 작업들](#3-1-지금까지-한-작업들)
+  - [4. 프라이버시](#4-프라이버시)
 
 ## 1. 화폐 예제
 
@@ -225,7 +226,7 @@ public void testMultiplicatioin() {
   five.times(2);
   assartEquals(10, product.amount);
   five.times(3);
-  assartEquals(15, procuet.amount);
+  assartEquals(15, product.amount);
 }
 ```
 
@@ -238,7 +239,7 @@ public void testMultiplication() {
   Dollar product = five.times(2);
   assartEquals(10, product.amount);
   product = five.times(3);
-  assartEquals(15, procuet.amount);
+  assartEquals(15, product.amount);
 }
 ```
 
@@ -354,7 +355,7 @@ public boolean equals(Object object) {
 
 - [ ] $5 + 10CHF = $10
 - [x] $5 x 2 = $10
-- [ ] amount를 private으로 만들기
+- [ ] amount를 private으로 만들기 *
 - [x] Dollar 의 side effect
 - [ ] Money 반올림 ?
 - [x] equals()
@@ -371,3 +372,82 @@ public boolean equals(Object object) {
 - 해당 오퍼레이션을 간단히 구현했다.
 - 곧장 리팩토링하는 대신 테스트를 조금 더 했다.
 - 두 경우를 모두 수용할 수 있도록 리팩토링했다.
+
+## 4. 프라이버시
+
+---
+
+기능 리스트
+
+- [ ] $5 + 10CHF = $10
+- [x] $5 x 2 = $10
+- [ ] amount를 private으로 만들기
+- [x] Dollar 의 side effect
+- [ ] Money 반올림 ?
+- [x] equals()
+- [ ] hashCode()
+- [ ] Equal null
+- [ ] Equal object
+
+---
+
+동치성 문제를 정의했으므로 이를 이용하여 테스트에 적용하자.\
+개념적으로 Dollar.times() 연산은 호출을 받은 객체의 값에 인자로 받은 곱수만큼 곱한 값을 갖는 Dollar를 반환해야한다.
+
+```java
+public void testMultiplicatioin() {
+  Dollar five = new Dollar(5);
+  Dollar product = five.times(2);
+  assartEquals(10, product.amount);
+  product = five.times(3);
+  assartEquals(15, procuet.amount);
+}
+```
+
+- Dollar와 Dollar를 비교하는 것으로 재작성할 수 있다.
+
+```java
+public void testMultiplicatioin() {
+  Dollar five = new Dollar(5);
+  Dollar product = five.times(2);
+  assartEquals(new Dollar(10), product);
+  product = five.times(3);
+  assartEquals(new Dollar(15), product);
+}
+```
+
+- 임시변수인 product는 불필요 하다.
+
+```java
+public void testMultiplicatioin() {
+  Dollar five = new Dollar(5);
+  assartEquals(new Dollar(10), five.times(2));
+  assartEquals(new Dollar(15), five.times(3));
+}
+```
+
+- 이제 Dollar의 amount 인스턴스 변수를 사용하는 코드는 Dollar 자신밖에 없게 됐다.
+- 따라서 변수를 private으로 변경할 수 있다.
+
+```java
+class Dollar {
+  private int amount;
+  ...
+}
+```
+
+---
+
+기능 리스트
+
+- [ ] $5 + 10CHF = $10
+- [x] $5 x 2 = $10
+- [x] amount를 private으로 만들기
+- [x] Dollar 의 side effect
+- [ ] Money 반올림 ?
+- [x] equals()
+- [ ] hashCode()
+- [ ] Equal null
+- [ ] Equal object
+
+---
