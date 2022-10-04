@@ -20,6 +20,10 @@
   - [4. 프라이버시](#4-프라이버시)
     - [4-1. 테스트 작성하기](#4-1-테스트-작성하기)
       - [4-1. 지금까지 한 작업들](#4-1-지금까지-한-작업들)
+  - [5. 솔직히 말하자면](#5-솔직히-말하자면)
+    - [5-1. 테스트 작성하기](#5-1-테스트-작성하기)
+    - [5-2. 테스트 통과하기](#5-2-테스트-통과하기)
+      - [5-1. 지금까지 한 작업들](#5-1-지금까지-한-작업들)
 
 ## 1. 화폐 예제
 
@@ -53,7 +57,7 @@
 
 ---
 
-기능 리스트
+To-Do List
 
 - [ ] $5 + 10CHF = $10
 - [ ] $5 x 2 = $10 \*
@@ -77,7 +81,7 @@ public void testMultiiplication() {
 
 ---
 
-기능 리스트
+To-Do List
 
 - [ ] $5 + 10CHF = $10
 - [ ] $5 x 2 = $10 \*
@@ -170,7 +174,7 @@ void times (int multiplier) {
 
 ---
 
-기능 리스트
+To-Do List
 
 - [ ] $5 + 10CHF = $10
 - [x] $5 x 2 = $10
@@ -195,7 +199,7 @@ void times (int multiplier) {
 ---
 
 ```text
-기능 리스트
+To-Do List
 - [ ] $5 + 10CHF = $10
 - [x] $5 x 2 = $10
 - [ ] amount를 private으로 만들기
@@ -267,7 +271,7 @@ public void testMultiplication() {
 
 ---
 
-기능 리스트
+To-Do List
 
 - [ ] $5 + 10CHF = $10
 - [x] $5 x 2 = $10
@@ -297,7 +301,7 @@ public void testMultiplication() {
 
 ---
 
-기능 리스트
+To-Do List
 
 - [ ] $5 + 10CHF = $10
 - [x] $5 x 2 = $10
@@ -353,7 +357,7 @@ public boolean equals(Object object) {
 
 ---
 
-기능 리스트
+To-Do List
 
 - [ ] $5 + 10CHF = $10
 - [x] $5 x 2 = $10
@@ -379,7 +383,7 @@ public boolean equals(Object object) {
 
 ---
 
-기능 리스트
+To-Do List
 
 - [ ] $5 + 10CHF = $10
 - [x] $5 x 2 = $10
@@ -442,7 +446,7 @@ class Dollar {
 
 ---
 
-기능 리스트
+To-Do List
 
 - [ ] $5 + 10CHF = $10
 - [x] $5 x 2 = $10
@@ -465,3 +469,87 @@ class Dollar {
 - 두 테스트가 동시에 실패하면 망한다는 점을 인식했다.
 - 위험 요소가 있음에도 계속 진행했다.
 - 테스트와 코드 사이의 결합도를 낮추기 위해, 테스트하는 객체의 새 기능을 사용했다.
+
+## 5. 솔직히 말하자면
+
+---
+
+To-Do List
+
+- [ ] $5 + 10CHF = $10
+- [x] $5 x 2 = $10
+- [x] amount를 private으로 만들기
+- [x] Dollar 의 side effect
+- [ ] Money 반올림 ?
+- [x] equals()
+- [ ] hashCode()
+- [ ] Equal null
+- [ ] Equal object
+- [ ] 5CHF x 2 = 10CHF \*
+
+---
+
+### 5-1. 테스트 작성하기
+
+- Dollar 객체와 비슷하지만 달러 대신 Franc을 표현할 수 있는 객체가 필요 할 것 같다.
+
+```java
+public void testFrancMultiplicatioin() {
+  Franc five = new Franc(5);
+  assartEquals(new Franc(10), five.times(2));
+  assartEquals(new Franc(15), five.times(3));
+}
+```
+
+- Dollar 코드를 복사해서 Dollar를 Franc으로 바꾸면 어떨까.
+- 중복코드를 사용하는 것이 문제되지만 일단 테스트가 통과 되게 만드는 것이 더 중요하다.
+- 그렇다고 중복 제거가 중요하지 않다는 뜻은 아니다.
+- 적절한 시기에 적절한 설계를. 돌아가게 만들고 올바르게 만들어라.
+
+### 5-2. 테스트 통과하기
+
+```java
+class Franc {
+  private int amount;
+
+  Franc (int amount) {
+    this.amount = amount;
+  }
+
+  Franc times (int multiplier) {
+    return new Franc(amount * multiplier);
+  }
+
+  public boolean equals(Object object) {
+    Franc franc = (Franc) object;
+    return amount == franc.amount;
+  }
+}
+```
+
+---
+
+To-Do List
+
+- [ ] $5 + 10CHF = $10
+- [x] $5 x 2 = $10
+- [x] amount를 private으로 만들기
+- [x] Dollar 의 side effect
+- [ ] Money 반올림 ?
+- [x] equals()
+- [ ] hashCode()
+- [ ] Equal null
+- [ ] Equal object
+- [x] 5CHF x 2 = 10CHF
+- [ ] Dollar/Franc 중복
+- [ ] 공용 equals
+- [ ] 공용 times
+
+---
+
+#### 5-1. 지금까지 한 작업들
+
+- 큰 테스트를 공략할 수 없다. 그래서 진전을 나타낼 수 있는 자그마한 테스트를 만들었다.
+- 뻔뻔스럽게도 중복을 만들고 조금 고쳐서 테스트를 작성했다.
+- 설상가상으로 모델 코드까지 도매금으로 복사하고 수정해서 테스트를 통과했다.
+- 중복이 사라지기 전에는 집에 가지 않겠다고 약속했다.
