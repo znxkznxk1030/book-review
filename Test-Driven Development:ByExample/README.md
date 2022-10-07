@@ -25,6 +25,7 @@
     - [5-2. 테스트 통과하기](#5-2-테스트-통과하기)
       - [5-1. 지금까지 한 작업들](#5-1-지금까지-한-작업들)
   - [6. 돌아온 '모두를 위한 평등'](#6-돌아온-모두를-위한-평등)
+    - [Dollar와 Franc의 공통 상위 클래스를 찾아내기](#dollar와-franc의-공통-상위-클래스를-찾아내기)
 
 ## 1. 화폐 예제
 
@@ -556,3 +557,74 @@ To-Do List
 - 중복이 사라지기 전에는 집에 가지 않겠다고 약속했다.
 
 ## 6. 돌아온 '모두를 위한 평등'
+
+---
+
+To-Do List
+
+- [ ] $5 + 10CHF = $10
+- [x] $5 x 2 = $10
+- [x] amount를 private으로 만들기
+- [x] Dollar 의 side effect
+- [ ] Money 반올림 ?
+- [x] equals()
+- [ ] hashCode()
+- [ ] Equal null
+- [ ] Equal object
+- [x] 5CHF x 2 = 10CHF
+- [ ] Dollar/Franc 중복
+- [ ] 공용 equals \*
+- [ ] 공용 times
+
+---
+
+### Dollar와 Franc의 공통 상위 클래스를 찾아내기
+
+1. 공통의 상위 클래스인 Money 생성하기
+
+```java
+class Money
+```
+
+```java
+class Dollar extends Money {
+  private int amount;
+  ...
+}
+```
+
+2. amount 인스턴스 변수를 Money로 옮기기
+
+```java
+class Money {
+  protected int amount;
+}
+```
+
+```java
+class Dollar extends Money {
+  ...
+}
+```
+
+3. 이제 equals() 코드를 위로 올리는 일을 할 수 있게 됐다. 우선 임시변수를 선언하는 부분을 변경
+
+```java
+// Dollar
+
+public boolean equals(Object object) {
+  Money money = (Money) object;
+  return amount == money.amount;
+}
+```
+
+4. 이 메서드를 Dollar에서 Money로 옮길 수 있다.
+
+```java
+// Money
+
+public boolean equals(Object object) {
+  Money money = (Money) object;
+  return amount == money.amount;
+}
+```
