@@ -27,6 +27,8 @@
   - [6. 돌아온 '모두를 위한 평등'](#6-돌아온-모두를-위한-평등)
     - [Dollar와 Franc의 공통 상위 클래스를 찾아내기](#dollar와-franc의-공통-상위-클래스를-찾아내기)
       - [6-1. 지금까지 한 작업들](#6-1-지금까지-한-작업들)
+  - [7. 사과와 오렌지](#7-사과와-오렌지)
+    - [7-1. 테스트 추가](#7-1-테스트-추가)
 
 ## 1. 화폐 예제
 
@@ -660,18 +662,19 @@ public boolean equals(Object object) { // Money의 equals와 동일하므로 제
 To-Do List
 
 - [ ] $5 + 10CHF = $10
-- [x] $5 x 2 = $10
-- [x] amount를 private으로 만들기
-- [x] Dollar 의 side effect
+- [x] ~~$5 x 2 = $10~~
+- [x] ~~amount를 private으로 만들기
+- [x] ~~Dollar 의 side effect~~
 - [ ] Money 반올림 ?
-- [x] equals()
+- [x] ~~equals()~~
 - [ ] hashCode()
 - [ ] Equal null
 - [ ] Equal object
-- [x] 5CHF x 2 = 10CHF
+- [x] ~~5CHF x 2 = 10CHF~~
 - [ ] Dollar/Franc 중복
-- [x] 공용 equals \*
+- [x] ~~공용 equals~~ \*
 - [ ] 공용 times
+- [ ] Franc과 Dollar 비교하기
 
 ---
 
@@ -683,3 +686,54 @@ To-Do List
 - 공통된 코드를 첫 번째 클래스(Dollar)에서 상위 클래스(Money)로 단계적으로 옮겼다.
 - 두번째 클래서(Franc)도 Money의 하위 클래스로 만들었다.
 - 불필요한 구현을 제거하기 전에 두 equals()구현을 일치 시켰다.
+
+## 7. 사과와 오렌지
+
+---
+
+To-Do List
+
+- [ ] $5 + 10CHF = $10
+- [x] ~~$5 x 2 = $10~~
+- [x] ~~amount를 private으로 만들기~~
+- [x] ~~Dollar 의 side effect~~
+- [ ] Money 반올림 ?
+- [x] ~~equals()~~
+- [ ] hashCode()
+- [ ] Equal null
+- [ ] Equal object
+- [x] ~~5CHF x 2 = 10CHF~~
+- [ ] Dollar/Franc 중복
+- [x] ~~공용 equals~~
+- [ ] 공용 times
+- [ ] **Franc과 Dollar 비교하기** \*
+
+---
+
+### 7-1. 테스트 추가
+
+- Franc과 Dollar를 비교하면 어떻게 될까?
+
+```java
+public void testEquality() {
+  assertTrue(new Dollar(5).equals(new Dollar(5)));
+  assertFalse(new Dollar(5).equals(new Dollar(6)));
+  assertTrue(new Franc(5).equals(new Franc(5)));
+  assertFalse(new Franc(5).equals(new Franc(6)));
+  assertFalse(new Franc(5).equals(new Dollar(5)));
+}
+```
+
+- 마지막 테스트를 통과시키기 위해 오직 금액과 클래스가 서로 동일할 때만 두 Money가 서로 같은 것으로 코드를 수정하자.
+
+```java
+// Money
+public boolean equals(Object object) {
+  Money money = (Money) object;
+  return amount == money.amount
+    && getClass().equals(money.getClass());
+}
+```
+
+- 자바 객체의 용어를 사용하는 것보다 재정 분야에 맞는 용어를 사용하고 싶다.
+- 하지만 현재는 통화 개념 같은게 없고, 통화 개념을 도입할 충분한 이유가 없어 보이므로 잠시 동안은 이대로 두자.
