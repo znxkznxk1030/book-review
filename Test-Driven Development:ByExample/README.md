@@ -26,6 +26,7 @@
       - [5-1. 지금까지 한 작업들](#5-1-지금까지-한-작업들)
   - [6. 돌아온 '모두를 위한 평등'](#6-돌아온-모두를-위한-평등)
     - [Dollar와 Franc의 공통 상위 클래스를 찾아내기](#dollar와-franc의-공통-상위-클래스를-찾아내기)
+      - [6-1. 지금까지 한 작업들](#6-1-지금까지-한-작업들)
 
 ## 1. 화폐 예제
 
@@ -628,3 +629,57 @@ public boolean equals(Object object) {
   return amount == money.amount;
 }
 ```
+
+5. Franc.equals() 제거
+
+- 현재 동치성 테스트가 Franc끼리의 비교에 대해서는 다루지 않는다. => 이를 추가하자.
+
+```java
+public void testEquality() {
+  assertTrue(new Dollar(5).equals(new Dollar(5)));
+  assertFalse(new Dollar(5).equals(new Dollar(6)));
+  assertTrue(new Franc(5).equals(new Franc(5)));
+  assertFalse(new Franc(5).equals(new Franc(6)));
+}
+```
+
+- Franc의 equals를 상위 클래스 Money에 맞게 고쳐보고, Money의 equals와 동일하다면 제거한다.
+
+```java
+// Franc
+...
+@deprecated
+public boolean equals(Object object) { // Money의 equals와 동일하므로 제거
+  Money money = (Money) object;
+  return amount == Money.amount;
+}
+```
+
+---
+
+To-Do List
+
+- [ ] $5 + 10CHF = $10
+- [x] $5 x 2 = $10
+- [x] amount를 private으로 만들기
+- [x] Dollar 의 side effect
+- [ ] Money 반올림 ?
+- [x] equals()
+- [ ] hashCode()
+- [ ] Equal null
+- [ ] Equal object
+- [x] 5CHF x 2 = 10CHF
+- [ ] Dollar/Franc 중복
+- [x] 공용 equals \*
+- [ ] 공용 times
+
+---
+
+- 테스트는 잘돌아간다.
+- 하지만 Franc과 Dollar를 비교하면 어떻게 될까?
+
+#### 6-1. 지금까지 한 작업들
+
+- 공통된 코드를 첫 번째 클래스(Dollar)에서 상위 클래스(Money)로 단계적으로 옮겼다.
+- 두번째 클래서(Franc)도 Money의 하위 클래스로 만들었다.
+- 불필요한 구현을 제거하기 전에 두 equals()구현을 일치 시켰다.
