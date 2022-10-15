@@ -31,6 +31,7 @@
     - [7-1. 테스트 추가](#7-1-테스트-추가)
     - [7-1. 지금까지 한 일](#7-1-지금까지-한-일)
   - [8. 객체 만들기](#8-객체-만들기)
+    - [Dollar/Franc 중복](#dollarfranc-중복)
 
 ## 1. 화폐 예제
 
@@ -456,11 +457,11 @@ class Dollar {
 To-Do List
 
 - [ ] $5 + 10CHF = $10
-- [x] $5 x 2 = $10
-- [x] amount를 private으로 만들기
-- [x] Dollar 의 side effect
+- [x] ~~$5 x 2 = $10~~
+- [x] ~~amount를 private으로 만들기~~
+- [x] ~~Dollar 의 side effect~~
 - [ ] Money 반올림 ?
-- [x] equals()
+- [x] ~~equals()~~
 - [ ] hashCode()
 - [ ] Equal null
 - [ ] Equal object
@@ -484,11 +485,11 @@ To-Do List
 To-Do List
 
 - [ ] $5 + 10CHF = $10
-- [x] $5 x 2 = $10
-- [x] amount를 private으로 만들기
-- [x] Dollar 의 side effect
+- [x] ~~$5 x 2 = $10~~
+- [x] ~~amount를 private으로 만들기~~
+- [x] ~~Dollar 의 side effect~~
 - [ ] Money 반올림 ?
-- [x] equals()
+- [x] ~~equals()~~
 - [ ] hashCode()
 - [ ] Equal null
 - [ ] Equal object
@@ -539,15 +540,15 @@ class Franc {
 To-Do List
 
 - [ ] $5 + 10CHF = $10
-- [x] $5 x 2 = $10
-- [x] amount를 private으로 만들기
-- [x] Dollar 의 side effect
+- [x] ~~$5 x 2 = $10~~
+- [x] ~~amount를 private으로 만들기~~
+- [x] ~~Dollar 의 side effect~~
 - [ ] Money 반올림 ?
-- [x] equals()
+- [x] ~~equals()~~
 - [ ] hashCode()
 - [ ] Equal null
 - [ ] Equal object
-- [x] 5CHF x 2 = 10CHF
+- [x] ~~5CHF x 2 = 10CHF~~
 - [ ] Dollar/Franc 중복
 - [ ] 공용 equals
 - [ ] 공용 times
@@ -568,15 +569,15 @@ To-Do List
 To-Do List
 
 - [ ] $5 + 10CHF = $10
-- [x] $5 x 2 = $10
-- [x] amount를 private으로 만들기
-- [x] Dollar 의 side effect
+- [x] ~~$5 x 2 = $10~~
+- [x] ~~amount를 private으로 만들기~~
+- [x] ~~Dollar 의 side effect~~
 - [ ] Money 반올림 ?
-- [x] equals()
+- [x] ~~equals()~~
 - [ ] hashCode()
 - [ ] Equal null
 - [ ] Equal object
-- [x] 5CHF x 2 = 10CHF
+- [x] ~~5CHF x 2 = 10CHF~~
 - [ ] Dollar/Franc 중복
 - [ ] 공용 equals \*
 - [ ] 공용 times
@@ -665,7 +666,7 @@ To-Do List
 
 - [ ] $5 + 10CHF = $10
 - [x] ~~$5 x 2 = $10~~
-- [x] ~~amount를 private으로 만들기
+- [x] ~~amount를 private으로 만들기~~
 - [x] ~~Dollar 의 side effect~~
 - [ ] Money 반올림 ?
 - [x] ~~equals()~~
@@ -748,7 +749,7 @@ To-Do List
 
 - [ ] $5 + 10CHF = $10
 - [x] ~~$5 x 2 = $10~~
-- [x] ~~amount를 private으로 만들기
+- [x] ~~amount를 private으로 만들기~~
 - [x] ~~Dollar 의 side effect~~
 - [ ] Money 반올림 ?
 - [x] ~~equals()~~
@@ -768,3 +769,122 @@ To-Do List
 - 더 많은 동기가 있기 전에는 더 많은 설계를 도입하지 않기로 했다.
 
 ## 8. 객체 만들기
+
+---
+
+To-Do List
+
+- [ ] $5 + 10CHF = $10
+- [x] ~~$5 x 2 = $10~~
+- [x] ~~amount를 private으로 만들기~~
+- [x] ~~Dollar 의 side effect~~
+- [ ] Money 반올림 ?
+- [x] ~~equals()~~
+- [ ] hashCode()
+- [ ] Equal null
+- [ ] Equal object
+- [x] ~~5CHF x 2 = 10CHF~~
+- [ ] Dollar/Franc 중복 \*
+- [x] ~~공용 equals~~
+- [ ] 공용 times
+- [x] ~~Franc과 Dollar 비교하기~~
+
+---
+
+### Dollar/Franc 중복
+
+두 times의 구현코드가 거의 똑같다.
+
+```java
+// Franc
+Franc times(int multiplier) {
+  return new Franc(amount * multiplier);
+}
+```
+
+```java
+// Dollar
+Franc times(int multiplier) {
+  return new Dollar(amount * multiplier);
+}
+```
+
+양쪽 모두 Money를 반환하게 만들면 더 비슷하게 만들 수 있다.
+
+```java
+// Franc
+Money times(int multiplier) {
+  return new Franc(amount * multiplier);
+}
+```
+
+```java
+// Dollar
+Money times(int multiplier) {
+  return new Dollar(amount * multiplier);
+}
+```
+
+- Money의 두 하위 클래스는 그다지 많은 일을 하는 것 같지 않으므로 아에 제거해버리고 싶다.
+- 하위 클래스에 대한 직접적인 참조가 적어진다면 하위 클래스를 제거하기 위해 한 발짝 더 다가 섰다고 할 수 있겠다.
+- Money에 Dollar를 반환하는 팩토리 메서드를 도입할 수 있다.
+
+```java
+public void testMultiplicatioin() {
+  Dollar five = Money.dollar(5);
+  assartEquals(new Dollar(10), five.times(2));
+  assartEquals(new Dollar(15), five.times(3));
+}
+```
+
+```java
+// Money
+static Dollar dollar(int amount) {
+  return new Dollar(amount);
+}
+```
+
+- Dollar에 대한 참조가 사라지길 바라므로 테스트의 선언부를 다음과 같이 바꿔야 한다.
+
+```java
+public void testMultiplicatioin() {
+  Dollar five = Money.dollar(5);
+  assartEquals(Money.dollar(10), five.times(2));
+  assartEquals(Money.dollar(15), five.times(3));
+}
+```
+
+- 컴파일러가 Money에는 times()가 정의되지 않았다는 사실을 알려준다.
+- 아직 times를 정의할 준비가 되지 않았기 때문에, Money를 추상 클래스로 변경한 후 Money.times()를 선언하자.
+
+```java
+// Money
+abstract class Money {
+  ...
+  abstract Money times(int multiplier);
+  static Money dollar(int amount) {
+    return new Dollar(amount);
+  }
+}
+```
+
+- 모든 테스트가 실행되므로 최소한 뭔가를 깨트리진 않았다.
+- 이제 팩토리 메서드를 테스트 코드의 나머지 모든 곳에서 사용할 수 있다.
+
+```java
+public void testMultiplicatioin() {
+  Dollar five = Money.dollar(5);
+  assartEquals(Money.dollar(10), five.times(2));
+  assartEquals(Money.dollar(15), five.times(3));
+}
+```
+
+```java
+public void testEquality() {
+  assertTrue(Money.dollar(5).equals(Money.dollar(5)));
+  assertFalse(Money.dollar(5).equals(nMoney.dollar(6)));
+  assertTrue(new Franc(5).equals(new Franc(5)));
+  assertFalse(new Franc(5).equals(new Franc(6)));
+  assertFalse(new Franc(5).equals(Money.dollar(5)));
+}
+```
