@@ -32,6 +32,7 @@
     - [7-1. 지금까지 한 일](#7-1-지금까지-한-일)
   - [8. 객체 만들기](#8-객체-만들기)
     - [Dollar/Franc 중복](#dollarfranc-중복)
+    - [8. 지금까지 한 일](#8-지금까지-한-일)
 
 ## 1. 화폐 예제
 
@@ -892,7 +893,7 @@ public void testEquality() {
 - 어떤 클라이언트 코드도 Dollar라는 이름의 클래스가 있다는 사실을 알지 못한다.
 - Decoupling함으로써 어떤 모델코드에도 영향을 주지 않고 상속 구조를 마음대로 변경할 수 있게 됐다.
 
-- Franc도 적용하기
+- Franc에도 적용하기
 
 ```java
 public void testMultiplicatioin() {
@@ -918,3 +919,33 @@ static Money franc(int amount) {
   return new Franc(amount);
 }
 ```
+
+---
+
+To-Do List
+
+- [ ] $5 + 10CHF = $10
+- [x] ~~$5 x 2 = $10~~
+- [x] ~~amount를 private으로 만들기~~
+- [x] ~~Dollar 의 side effect~~
+- [ ] Money 반올림 ?
+- [x] ~~equals()~~
+- [ ] hashCode()
+- [ ] Equal null
+- [ ] Equal object
+- [x] ~~5CHF x 2 = 10CHF~~
+- [ ] Dollar/Franc 중복 \*
+- [x] ~~공용 equals~~
+- [ ] 공용 times
+- [x] ~~Franc과 Dollar 비교하기~~
+- [ ] 통화?
+- [ ] testFrancMuliplication을 지워야 할까?
+
+---
+
+### 8. 지금까지 한 일
+
+- 동일한 메서드(times)의 두 변이형 메서드 서명부를 통일시킴으로써 중복 제거를 향해 한 단계 더 전진했다.
+- 최소한 메서드 선언부만이라도 공통 상위 클래스(superclass)로 옮겼다.
+- 팩토리 메서드를 도입하여 테스트 코드에서 콘크리트 하위 클래스의 존재 사실을 분래해냈다.
+- 하위 클래스가 사라지면 몇몇 테스트는 불필요한 여분의 것이 된다는 것을 인식했다. 하지만 일단 그냥 뒀다.
