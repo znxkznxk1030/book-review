@@ -888,3 +888,33 @@ public void testEquality() {
   assertFalse(new Franc(5).equals(Money.dollar(5)));
 }
 ```
+
+- 어떤 클라이언트 코드도 Dollar라는 이름의 클래스가 있다는 사실을 알지 못한다.
+- Decoupling함으로써 어떤 모델코드에도 영향을 주지 않고 상속 구조를 마음대로 변경할 수 있게 됐다.
+
+- Franc도 적용하기
+
+```java
+public void testMultiplicatioin() {
+  Franc five = Money.franc(5);
+  assartEquals(Money.franc(10), five.times(2));
+  assartEquals(Money.franc(15), five.times(3));
+}
+```
+
+```java
+public void testEquality() {
+  assertTrue(Money.dollar(5).equals(Money.dollar(5)));
+  assertFalse(Money.dollar(5).equals(nMoney.dollar(6)));
+  assertTrue(Money.franc(5).equals(Money.franc(5)));
+  assertFalse(Money.franc(5).equals(Money.franc(6)));
+  assertFalse(Money.franc(5).equals(Money.dollar(5)));
+}
+```
+
+```java
+// Money
+static Money franc(int amount) {
+  return new Franc(amount);
+}
+```
