@@ -34,6 +34,7 @@
     - [Dollar/Franc 중복](#dollarfranc-중복)
     - [8. 지금까지 한 일](#8-지금까지-한-일)
   - [9. 우리가 사는 시간](#9-우리가-사는-시간)
+    - [통화개념에 대한 테스트 추가하기](#통화개념에-대한-테스트-추가하기)
 
 ## 1. 화폐 예제
 
@@ -952,3 +953,39 @@ To-Do List
 - 하위 클래스가 사라지면 몇몇 테스트는 불필요한 여분의 것이 된다는 것을 인식했다. 하지만 일단 그냥 뒀다.
 
 ## 9. 우리가 사는 시간
+
+---
+
+To-Do List
+
+- [ ] $5 + 10CHF = $10
+- [x] ~~$5 x 2 = $10~~
+- [x] ~~amount를 private으로 만들기~~
+- [x] ~~Dollar 의 side effect~~
+- [ ] Money 반올림 ?
+- [x] ~~equals()~~
+- [ ] hashCode()
+- [ ] Equal null
+- [ ] Equal object
+- [x] ~~5CHF x 2 = 10CHF~~
+- [ ] Dollar/Franc 중복
+- [x] ~~공용 equals~~
+- [ ] 공용 times
+- [x] ~~Franc과 Dollar 비교하기~~
+- [ ] 통화? \*
+- [ ] testFrancMuliplication을 지워야 할까?
+
+---
+
+### 통화개념에 대한 테스트 추가하기
+
+- 하위클래스를 제거하기 위해 통화개념을 도입해보면 어떨까?
+- 통화개념을 어떻게 테스트하길 원하는가?
+- 경량 팩토리(flyweight factories) 패턴을 사용해 볼 수 있다.
+
+```java
+public void testCurrency() {
+  assertEquals("USD", Money.dollar(1).currency());
+  assertEquals("CHF", Money.franc(1).currency());
+}
+```
