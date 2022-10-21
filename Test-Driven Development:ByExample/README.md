@@ -35,6 +35,7 @@
     - [8. 지금까지 한 일](#8-지금까지-한-일)
   - [9. 우리가 사는 시간](#9-우리가-사는-시간)
     - [통화개념에 대한 테스트 추가하기](#통화개념에-대한-테스트-추가하기)
+    - [통화개념 구현](#통화개념-구현)
 
 ## 1. 화폐 예제
 
@@ -988,4 +989,38 @@ public void testCurrency() {
   assertEquals("USD", Money.dollar(1).currency());
   assertEquals("CHF", Money.franc(1).currency());
 }
+```
+
+### 통화개념 구현
+
+- Money에 currency() 메서드 추가
+
+```java
+// Money
+abstract String currency();
+```
+
+- 두 하위 클래스에서 이를 구현하자
+
+```java
+// Franc
+String currency() {
+  return "CHF";
+}
+
+// Dollar
+String currency() {
+  return "USD";
+}
+```
+
+- 우선 두 클래스를 모두 포함할 수 있는 동일한 구현을 원한다.
+- 통화를 인스턴스 변수에 저장하고, 메서드에서는 그냥 그걸 반환하게 만들 수 있을 것 같다.
+
+```java
+
+```
+
+```java
+
 ```
