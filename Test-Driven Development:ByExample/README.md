@@ -1018,9 +1018,29 @@ String currency() {
 - 통화를 인스턴스 변수에 저장하고, 메서드에서는 그냥 그걸 반환하게 만들 수 있을 것 같다.
 
 ```java
+// Franc
+private String curreny;
 
+Frnac(int amount) {
+  this.amount = amount;
+  currency = "CHF";
+}
+
+String curreny() {
+  return currency;
+}
 ```
 
 ```java
+// Dollar
+private String curreny;
 
+Dollar(int amount) {
+  this.amount = amount;
+  currency = "USD";
+}
+
+String curreny() {
+  return currency;
+}
 ```
