@@ -36,6 +36,7 @@
   - [9. 우리가 사는 시간](#9-우리가-사는-시간)
     - [통화개념에 대한 테스트 추가하기](#통화개념에-대한-테스트-추가하기)
     - [통화개념 구현](#통화개념-구현)
+    - [9. 지금까지 한 일](#9-지금까지-한-일)
 
 ## 1. 화폐 예제
 
@@ -1044,3 +1045,145 @@ String curreny() {
   return currency;
 }
 ```
+
+- 이제 두 currency()가 동일하므로 변수 선언과 currency() 구현을 둘 다 위로 올릴(push up) 수 있게 됐다.
+
+```java
+// Money
+protected String currency;
+String currency() {
+  return currency;
+}
+```
+
+- 문자열 'USD'와 'CHF'를 정적 팩토리 메서드로 옮긴다면 두 생성자가 동일해질 것이고, 그렇다면 공통 구현을 만들 수 있을 것이다.
+- 우선 생성자에 인자를 추가하자
+
+```java
+// Franc
+Franc(int amount, String currency) {
+  this.amount = amount;
+  this.currency = "CHF";
+}
+```
+
+- 생성자를 호출하는 코드 두 곳이 깨진다.
+
+```java
+// Money
+static Money franc(int amount) {
+  return new Franc(amount, null);
+}
+```
+
+```java
+// Franc
+Money times(int multiplier) {
+  return new Franc(amount * multiplier, null);
+}
+```
+
+- 잠깐! 왜 Franc.times()가 팩토리 메서드를 호출하지 않고 생성자를 호출하는 거지?
+- 진행하기 전에 times()를 정리하자
+
+```java
+// Franc
+Money times(int multiplier) {
+  return Money.franc(amount * multiplier);
+}
+```
+
+- 이젠 팩토리 메서드가 'CHF'를 전달할 수 있다.
+
+```java
+// Money
+static Money franc(int amount) {
+  return new Franc(amount, "CHF");
+}
+```
+
+- 그리고 마지막으로 인자를 인스턴스 변수에 할당할 수 있다.
+
+```java
+// Franc
+Franc(int amount, String currency) {
+  this.amount = amount;
+  this.currency = currency;
+}
+```
+
+- 단번에 Dollar도 유사하게 수정가능하다.
+
+```java
+// Money
+static Money dollar(int amount) {
+  return new Dollar(amount, "USD");
+}
+```
+
+```java
+// Dollar
+Dollar(int amount, String currency) {
+  this.amount = amount;
+  this.currency = currency;
+}
+
+Money times(int multiplier) {
+  return Money.dollar(amount * multiplier);
+}
+```
+
+- 두 생성자가 이제 동일해졌다. 구현을 상위 클래스에 올리자.
+
+```java
+// Money
+Money(int amount, String currency) {
+  this.amount = amount;
+  this.currency = currency;
+}
+```
+
+```java
+// Franc
+Franc(int amount, String currency) {
+  super(amount, currency);
+}
+```
+
+```java
+// Dollar
+Dollar(int amount, String currency) {
+  super(amount, currency);
+}
+```
+
+---
+
+To-Do List
+
+- [ ] $5 + 10CHF = $10
+- [x] ~~$5 x 2 = $10~~
+- [x] ~~amount를 private으로 만들기~~
+- [x] ~~Dollar 의 side effect~~
+- [ ] Money 반올림 ?
+- [x] ~~equals()~~
+- [ ] hashCode()
+- [ ] Equal null
+- [ ] Equal object
+- [x] ~~5CHF x 2 = 10CHF~~
+- [ ] Dollar/Franc 중복
+- [x] ~~공용 equals~~
+- [ ] 공용 times
+- [x] ~~Franc과 Dollar 비교하기~~
+- [x] ~~통화?~~
+- [ ] testFrancMuliplication을 지워야 할까?
+
+---
+
+### 9. 지금까지 한 일
+
+- 큰 설계 아이디어를 다루다가 조금 곤경에 빠졌다. 그래서 좀 전에 주목했던 더 작은 작업을 수행했다.
+- 다른 부분들을 호출자(팩토리 메서드)로 옮김으로써 두 생성자를 일치시켰다.
+- times()가 팩토리 메서드를 사용하도록 만들기 위해 리팩토링을 잠시 중단했다.
+- 비슷한 리팰토링(Franc에 했던 일을 Dollar에도 적용)을 한번의 큰 단계로 처리했다.
+- 동일한 생성자들을 상위 클래스로 올렸다.
