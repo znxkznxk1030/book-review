@@ -37,6 +37,7 @@
     - [통화개념에 대한 테스트 추가하기](#통화개념에-대한-테스트-추가하기)
     - [통화개념 구현](#통화개념-구현)
     - [9. 지금까지 한 일](#9-지금까지-한-일)
+  - [10. 흥미로운 시간](#10-흥미로운-시간)
 
 ## 1. 화폐 예제
 
@@ -1187,3 +1188,119 @@ To-Do List
 - times()가 팩토리 메서드를 사용하도록 만들기 위해 리팩토링을 잠시 중단했다.
 - 비슷한 리팰토링(Franc에 했던 일을 Dollar에도 적용)을 한번의 큰 단계로 처리했다.
 - 동일한 생성자들을 상위 클래스로 올렸다.
+
+## 10. 흥미로운 시간
+
+---
+
+To-Do List
+
+- [ ] $5 + 10CHF = $10
+- [x] ~~$5 x 2 = $10~~
+- [x] ~~amount를 private으로 만들기~~
+- [x] ~~Dollar 의 side effect~~
+- [ ] Money 반올림 ?
+- [x] ~~equals()~~
+- [ ] hashCode()
+- [ ] Equal null
+- [ ] Equal object
+- [x] ~~5CHF x 2 = 10CHF~~
+- [ ] Dollar/Franc 중복
+- [x] ~~공용 equals~~
+- [ ] 공용 times \*
+- [x] ~~Franc과 Dollar 비교하기~~
+- [x] ~~통화?~~
+- [ ] testFrancMuliplication을 지워야 할까?
+
+---
+
+이 장을 끝내고 나면, Money를 나타내기 위한 단 하나의 클래스만을 갖게 될 것이다.
+두 times() 구현이 거의 비슷하긴 하지만 아직 완전히 동일하지는 않다.
+
+```java
+// Franc
+Money times(int multiplier) {
+  return Money.franc(amount * multiplier);
+}
+```
+
+```java
+// Dollar
+Money times(int multiplier) {
+  return Money.dollar(amount * multiplier);
+}
+```
+
+둘을 동일하게 만들 방법이 없다. 일단 다시 인라인 시켜보자.
+
+```java
+// Franc
+Money times(int multiplier) {
+  return new Franc(amount * multiplier, "CHF");
+}
+```
+
+```java
+// Dollar
+Money times(int multiplier) {
+  return new Dollar(amount * multiplier, "USD");
+}
+```
+
+Franc에서는 인스턴수 변수 currency가 항상 'CHF'이므로 다음과 같이 쓸 수 있다.
+
+```java
+// Franc
+Money times(int multiplier) {
+  return new Franc(amount * multiplier, currency);
+}
+```
+
+Dollar도 마찬가지이다.
+
+```java
+// Dollar
+Money times(int multiplier) {
+  return new Dollar(amount * multiplier, curreny);
+}
+```
+
+Franc을 가질지 Money를 가질지가 정말로 중요한 사실인가?
+그냥 수정하고 테스트를 돌려서 컴퓨터에게 직접 물어보자.
+Franc.times()가 Money를 반환하도록 고쳐보자.
+
+```java
+// Franc
+Money times(int multiplier) {
+  return new Money(amount * multiplier, currency);
+}
+```
+
+컴파일러가 Money를 콘크리트 클래스로 바꿔야 한다고 말한다.
+
+```java
+Money times(int amount) {
+  return null;
+}
+```
+
+에러가 출력된다. ( "expected:<Money.Franc@31aebf> bas was <Money.Money@478a43>")
+더 나은 메세지를 보기 위해 toString()을 정의해보자.
+
+```java
+// Money
+public String toString() {
+  return amount + " " + currency;
+}
+```
+
+이제 에러메세지에 "expected:<10 CHF> bas was <10 CHF>"라고 나온다.
+답은 맞았는데, 클래스가 다르다. Franc 대신 Money가 왔다.
+문제는 equals() 구현에 있다.
+
+```java
+// Money
+public boolean equals(Object object) {
+  Money money = (Money) object;
+}
+```
