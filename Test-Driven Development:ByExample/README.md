@@ -38,6 +38,7 @@
     - [통화개념 구현](#통화개념-구현)
     - [9. 지금까지 한 일](#9-지금까지-한-일)
   - [10. 흥미로운 시간](#10-흥미로운-시간)
+    - [10. 지금까지 한 일](#10-지금까지-한-일)
 
 ## 1. 화폐 예제
 
@@ -1302,5 +1303,82 @@ public String toString() {
 // Money
 public boolean equals(Object object) {
   Money money = (Money) object;
+
+  return amount == money.amount && getClass().equals(money.getClass());
 }
 ```
+
+우리 상황은 Franc(10, "CHF")와 Money(10, "CHF")가 서로 같기를 바라지만, 사실은 그렇지 않다고 보고된 것이다.
+우리는 이걸 그대로 테스트로 사용할 수 있다.
+
+```java
+public void testDifferentClassEquality() {
+  assertTrue(new Money(10, "CHF").equals(new Franc(10, "CHF")));
+}
+```
+
+예상대로 실패한다.
+equals() 코드는 클래스가 아니라 currency를 비교해야한다.
+
+```java
+// Money
+public boolean equals(Object object) {
+  Money money = (Money) object;
+  return amount == money.amount && currency().equals(money.currency());
+}
+```
+
+이제 Dollar.times()와 Franc.times()에서 Money를 반환해도 테스트가 여전히 통과하게 할 수 있다.
+
+```java
+// Franc
+Money times(int multiplier) {
+  return new Franc(amount * multiplier, currency);
+}
+```
+
+```java
+// Dollar
+Money times(int multiplier) {
+  return new Dollar(amount * multiplier, curreny);
+}
+```
+
+이제 두 구현이 동일해졌으니, 상위 클래스로 끌어 올릴 수 있다.
+
+```java
+// Money
+Money times(int multiplier) {
+  return new Money(amount * multiplier, currency);
+}
+```
+
+---
+
+To-Do List
+
+- [ ] $5 + 10CHF = $10
+- [x] ~~$5 x 2 = $10~~
+- [x] ~~amount를 private으로 만들기~~
+- [x] ~~Dollar 의 side effect~~
+- [ ] Money 반올림 ?
+- [x] ~~equals()~~
+- [ ] hashCode()
+- [ ] Equal null
+- [ ] Equal object
+- [x] ~~5CHF x 2 = 10CHF~~
+- [ ] Dollar/Franc 중복
+- [x] ~~공용 equals~~
+- [x] ~~공용 times~~
+- [x] ~~Franc과 Dollar 비교하기~~
+- [x] ~~통화?~~
+- [ ] testFrancMuliplication을 지워야 할까?
+
+---
+
+### 10. 지금까지 한 일
+
+- 두 times()를 일치시키기 위해 그 메서드들이 호출하는 다른 메서드들을 인라인시킨 후 상수를 변수로 바꿔주었다.
+- 단지 디버깅을 위해 테스트 없이 toString()을 작성했다.
+- Franc 대신 Money를 반환하는 변경을 시도한 뒤 그것이 잘 작동할지를 테스트가 말하도록 했다.
+- 실험해본 걸 뒤로 물리고 또 다른 테스트를 작성했다. 테스트를 작동했더니 실험도 제대로 작동했다.
