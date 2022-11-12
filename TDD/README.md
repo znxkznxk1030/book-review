@@ -593,7 +593,7 @@ To-Do List
 
 ### Dollar와 Franc의 공통 상위 클래스를 찾아내기
 
-1. 공통의 상위 클래스인 Money 생성하기
+공통의 상위 클래스인 Money 생성하기
 
 ```java
 class Money
@@ -608,7 +608,7 @@ class Dollar extends Money {
 }
 ```
 
-2. amount 인스턴스 변수를 Money로 옮기기
+amount 인스턴스 변수를 Money로 옮기기
 
 ```java
 class Money {
@@ -624,7 +624,7 @@ class Dollar extends Money {
 }
 ```
 
-3. 이제 equals() 코드를 위로 올리는 일을 할 수 있게 됐다. 우선 임시변수를 선언하는 부분을 변경
+이제 equals() 코드를 위로 올리는 일을 할 수 있게 됐다. 우선 임시변수를 선언하는 부분을 변경
 
 ```java
 // Dollar
@@ -635,7 +635,7 @@ public boolean equals(Object object) {
 }
 ```
 
-4. 이 메서드를 Dollar에서 Money로 옮길 수 있다.
+이 메서드를 Dollar에서 Money로 옮길 수 있다.
 
 ```java
 // Money
@@ -646,7 +646,7 @@ public boolean equals(Object object) {
 }
 ```
 
-5. Franc.equals() 제거
+Franc.equals() 제거
 
 - 현재 동치성 테스트가 Franc끼리의 비교에 대해서는 다루지 않는다. => 이를 추가하자.
 
