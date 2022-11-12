@@ -2,7 +2,7 @@
 
 - [Test-Driven Development:ByExample - Kent Beck](#test-driven-developmentbyexample---kent-beck)
   - [1. 화폐 예제](#1-화폐-예제)
-    - [1장. 다중통화를 지원하는 com.arthur.Money 객체](#1장-다중통화를-지원하는-money-객체)
+    - [1장. 다중통화를 지원하는 Money 객체](#1장-다중통화를-지원하는-money-객체)
       - [다중통화를 지원하는 보고서](#다중통화를-지원하는-보고서)
       - [1-1. 테스트 작성하기](#1-1-테스트-작성하기)
       - [1-1 컴파일 에러 없애기 위한 클래스 생성하기](#1-1-컴파일-에러-없애기-위한-클래스-생성하기)
@@ -31,7 +31,7 @@
     - [7-1. 테스트 추가](#7-1-테스트-추가)
     - [7-1. 지금까지 한 일](#7-1-지금까지-한-일)
   - [8. 객체 만들기](#8-객체-만들기)
-    - [com.arthur.Dollar/com.arthur.Franc 중복](#dollarfranc-중복)
+    - [Dollar/Franc 중복](#dollarfranc-중복)
     - [8. 지금까지 한 일](#8-지금까지-한-일)
   - [9. 우리가 사는 시간](#9-우리가-사는-시간)
     - [통화개념에 대한 테스트 추가하기](#통화개념에-대한-테스트-추가하기)
@@ -54,7 +54,7 @@
 
 ---
 
-### 1장. 다중통화를 지원하는 com.arthur.Money 객체
+### 1장. 다중통화를 지원하는 Money 객체
 
 #### 다중통화를 지원하는 보고서
 
@@ -86,7 +86,7 @@ To-Do List
 ```java
 // $5 x 2 = $10
 public void testMultiiplication() {
-  com.arthur.Dollar five = new com.arthur.Dollar(5);
+  Dollar five = new Dollar(5);
   five.times(2);
   assertEquals(10, five.amount);
 }
@@ -101,14 +101,14 @@ To-Do List
 - [ ] $5 + 10CHF = $10
 - [ ] $5 x 2 = $10 \*
 - [ ] amount를 private으로 만들기
-- [ ] com.arthur.Dollar 의 side effect ?
-- [ ] com.arthur.Money 반올림 ?
+- [ ] Dollar 의 side effect ?
+- [ ] Money 반올림 ?
 
 ---
 
 - 컴파일시 에러 목록
 
-  - com.arthur.Dollar 클래스가 없음
+  - Dollar 클래스가 없음
   - 생성자가 없음
   - times(int) 메서드가 없음
   - amount 필드가 없음
@@ -116,9 +116,9 @@ To-Do List
 #### 1-1 컴파일 에러 없애기 위한 클래스 생성하기
 
 ```java
-class com.arthur.Dollar {
+class Dollar {
   int amount;
-  com.arthur.Dollar(int amount) { }
+  Dollar(int amount) { }
   void times(int multiplier) { }
 }
 ```
@@ -162,7 +162,7 @@ void times(int multiplier) {
 - amount는 생성자에서 넘어가는 값이다
 
 ```java
-com.arthur.Dollar (int amount) {
+Dollar (int amount) {
   this.amount = amount;
 }
 
@@ -194,8 +194,8 @@ To-Do List
 - [ ] $5 + 10CHF = $10
 - [x] $5 x 2 = $10
 - [ ] amount를 private으로 만들기
-- [ ] com.arthur.Dollar 의 side effect ?
-- [ ] com.arthur.Money 반올림 ?
+- [ ] Dollar 의 side effect ?
+- [ ] Money 반올림 ?
 
 ---
 
@@ -218,16 +218,16 @@ To-Do List
 - [ ] $5 + 10CHF = $10
 - [x] $5 x 2 = $10
 - [ ] amount를 private으로 만들기
-- [ ] com.arthur.Dollar 의 side effect *
-- [ ] com.arthur.Money 반올림 ?
+- [ ] Dollar 의 side effect *
+- [ ] Money 반올림 ?
 ```
 
 ---
 
 ```java
-class com.arthur.Dollar {
+class Dollar {
   int amount;
-  com.arthur.Dollar (int amount) {
+  Dollar (int amount) {
     this.amount = amount;
   }
 
@@ -243,7 +243,7 @@ class com.arthur.Dollar {
 
 ```java
 public void testMultiplicatioin() {
-  com.arthur.Dollar five = new com.arthur.Dollar(5);
+  Dollar five = new Dollar(5);
   five.times(2);
   assartEquals(10, product.amount);
   five.times(3);
@@ -256,8 +256,8 @@ public void testMultiplicatioin() {
 
 ```java
 public void testMultiplication() {
-  com.arthur.Dollar five = new com.arthur.Dollar(5);
-  com.arthur.Dollar product = five.times(2);
+  Dollar five = new Dollar(5);
+  Dollar product = five.times(2);
   assartEquals(10, product.amount);
   product = five.times(3);
   assartEquals(15, product.amount);
@@ -278,7 +278,7 @@ public void testMultiplication() {
 
 ```java
   void times (int multiplier) {
-    return new com.arthur.Dollar(amount * multiplier);
+    return new Dollar(amount * multiplier);
   }
 ```
 
@@ -291,8 +291,8 @@ To-Do List
 - [ ] $5 + 10CHF = $10
 - [x] $5 x 2 = $10
 - [ ] amount를 private으로 만들기
-- [x] com.arthur.Dollar 의 side effect
-- [ ] com.arthur.Money 반올림 ?
+- [x] Dollar 의 side effect
+- [ ] Money 반올림 ?
 
 ---
 
@@ -321,8 +321,8 @@ To-Do List
 - [ ] $5 + 10CHF = $10
 - [x] $5 x 2 = $10
 - [ ] amount를 private으로 만들기
-- [x] com.arthur.Dollar 의 side effect
-- [ ] com.arthur.Money 반올림 ?
+- [x] Dollar 의 side effect
+- [ ] Money 반올림 ?
 - [ ] equals() \*
 - [ ] hashCode()
 
@@ -334,7 +334,7 @@ To-Do List
 
 ```java
 public void testEquality() {
-  assertTrue(new com.arthur.Dollar(5).equals(new com.arthur.Dollar(5)));
+  assertTrue(new Dollar(5).equals(new Dollar(5)));
 }
 ```
 
@@ -354,8 +354,8 @@ public boolean equals(Object object) {
 
 ```java
 public void testEquality() {
-  assertTrue(new com.arthur.Dollar(5).equals(new com.arthur.Dollar(5)));
-  assertFalse(new com.arthur.Dollar(5).equals(new com.arthur.Dollar(6)));
+  assertTrue(new Dollar(5).equals(new Dollar(5)));
+  assertFalse(new Dollar(5).equals(new Dollar(6)));
 }
 ```
 
@@ -363,7 +363,7 @@ public void testEquality() {
 
 ```java
 public boolean equals(Object object) {
-  com.arthur.Dollar dollar = (com.arthur.Dollar) object;
+  Dollar dollar = (Dollar) object;
   return amount == dollar.amount;
 }
 ```
@@ -377,8 +377,8 @@ To-Do List
 - [ ] $5 + 10CHF = $10
 - [x] $5 x 2 = $10
 - [ ] amount를 private으로 만들기 \*
-- [x] com.arthur.Dollar 의 side effect
-- [ ] com.arthur.Money 반올림 ?
+- [x] Dollar 의 side effect
+- [ ] Money 반올림 ?
 - [x] equals()
 - [ ] hashCode()
 - [ ] Equal null
@@ -403,8 +403,8 @@ To-Do List
 - [ ] $5 + 10CHF = $10
 - [x] $5 x 2 = $10
 - [ ] amount를 private으로 만들기
-- [x] com.arthur.Dollar 의 side effect
-- [ ] com.arthur.Money 반올림 ?
+- [x] Dollar 의 side effect
+- [ ] Money 반올림 ?
 - [x] equals()
 - [ ] hashCode()
 - [ ] Equal null
@@ -415,12 +415,12 @@ To-Do List
 ### 4-1. 테스트 작성하기
 
 동치성 문제를 정의했으므로 이를 이용하여 테스트에 적용하자.\
-개념적으로 com.arthur.Dollar.times() 연산은 호출을 받은 객체의 값에 인자로 받은 곱수만큼 곱한 값을 갖는 Dollar를 반환해야한다.
+개념적으로 Dollar.times() 연산은 호출을 받은 객체의 값에 인자로 받은 곱수만큼 곱한 값을 갖는 Dollar를 반환해야한다.
 
 ```java
 public void testMultiplicatioin() {
-  com.arthur.Dollar five = new com.arthur.Dollar(5);
-  com.arthur.Dollar product = five.times(2);
+  Dollar five = new Dollar(5);
+  Dollar product = five.times(2);
   assartEquals(10, product.amount);
   product = five.times(3);
   assartEquals(15, procuet.amount);
@@ -431,11 +431,11 @@ public void testMultiplicatioin() {
 
 ```java
 public void testMultiplicatioin() {
-  com.arthur.Dollar five = new com.arthur.Dollar(5);
-  com.arthur.Dollar product = five.times(2);
-  assartEquals(new com.arthur.Dollar(10), product);
+  Dollar five = new Dollar(5);
+  Dollar product = five.times(2);
+  assartEquals(new Dollar(10), product);
   product = five.times(3);
-  assartEquals(new com.arthur.Dollar(15), product);
+  assartEquals(new Dollar(15), product);
 }
 ```
 
@@ -443,17 +443,17 @@ public void testMultiplicatioin() {
 
 ```java
 public void testMultiplicatioin() {
-  com.arthur.Dollar five = new com.arthur.Dollar(5);
-  assartEquals(new com.arthur.Dollar(10), five.times(2));
-  assartEquals(new com.arthur.Dollar(15), five.times(3));
+  Dollar five = new Dollar(5);
+  assartEquals(new Dollar(10), five.times(2));
+  assartEquals(new Dollar(15), five.times(3));
 }
 ```
 
-- 이제 Dollar의 amount 인스턴스 변수를 사용하는 코드는 com.arthur.Dollar 자신밖에 없게 됐다.
+- 이제 Dollar의 amount 인스턴스 변수를 사용하는 코드는 Dollar 자신밖에 없게 됐다.
 - 따라서 변수를 private으로 변경할 수 있다.
 
 ```java
-class com.arthur.Dollar {
+class Dollar {
   private int amount;
   ...
 }
@@ -466,8 +466,8 @@ To-Do List
 - [ ] $5 + 10CHF = $10
 - [x] ~~$5 x 2 = $10~~
 - [x] ~~amount를 private으로 만들기~~
-- [x] ~~com.arthur.Dollar 의 side effect~~
-- [ ] com.arthur.Money 반올림 ?
+- [x] ~~Dollar 의 side effect~~
+- [ ] Money 반올림 ?
 - [x] ~~equals()~~
 - [ ] hashCode()
 - [ ] Equal null
@@ -494,8 +494,8 @@ To-Do List
 - [ ] $5 + 10CHF = $10
 - [x] ~~$5 x 2 = $10~~
 - [x] ~~amount를 private으로 만들기~~
-- [x] ~~com.arthur.Dollar 의 side effect~~
-- [ ] com.arthur.Money 반올림 ?
+- [x] ~~Dollar 의 side effect~~
+- [ ] Money 반올림 ?
 - [x] ~~equals()~~
 - [ ] hashCode()
 - [ ] Equal null
@@ -506,17 +506,17 @@ To-Do List
 
 ### 5-1. 테스트 작성하기
 
-- com.arthur.Dollar 객체와 비슷하지만 달러 대신 Franc을 표현할 수 있는 객체가 필요 할 것 같다.
+- Dollar 객체와 비슷하지만 달러 대신 Franc을 표현할 수 있는 객체가 필요 할 것 같다.
 
 ```java
 public void testFrancMultiplicatioin() {
-  com.arthur.Franc five = new com.arthur.Franc(5);
-  assartEquals(new com.arthur.Franc(10), five.times(2));
-  assartEquals(new com.arthur.Franc(15), five.times(3));
+  Franc five = new Franc(5);
+  assartEquals(new Franc(10), five.times(2));
+  assartEquals(new Franc(15), five.times(3));
 }
 ```
 
-- com.arthur.Dollar 코드를 복사해서 Dollar를 Franc으로 바꾸면 어떨까.
+- Dollar 코드를 복사해서 Dollar를 Franc으로 바꾸면 어떨까.
 - 중복코드를 사용하는 것이 문제되지만 일단 테스트가 통과 되게 만드는 것이 더 중요하다.
 - 그렇다고 중복 제거가 중요하지 않다는 뜻은 아니다.
 - 적절한 시기에 적절한 설계를. 돌아가게 만들고 올바르게 만들어라.
@@ -524,19 +524,19 @@ public void testFrancMultiplicatioin() {
 ### 5-2. 테스트 통과하기
 
 ```java
-class com.arthur.Franc {
+class Franc {
   private int amount;
 
-  com.arthur.Franc (int amount) {
+  Franc (int amount) {
     this.amount = amount;
   }
 
-  com.arthur.Franc times (int multiplier) {
-    return new com.arthur.Franc(amount * multiplier);
+  Franc times (int multiplier) {
+    return new Franc(amount * multiplier);
   }
 
   public boolean equals(Object object) {
-    com.arthur.Franc franc = (com.arthur.Franc) object;
+    Franc franc = (Franc) object;
     return amount == franc.amount;
   }
 }
@@ -549,14 +549,14 @@ To-Do List
 - [ ] $5 + 10CHF = $10
 - [x] ~~$5 x 2 = $10~~
 - [x] ~~amount를 private으로 만들기~~
-- [x] ~~com.arthur.Dollar 의 side effect~~
-- [ ] com.arthur.Money 반올림 ?
+- [x] ~~Dollar 의 side effect~~
+- [ ] Money 반올림 ?
 - [x] ~~equals()~~
 - [ ] hashCode()
 - [ ] Equal null
 - [ ] Equal object
 - [x] ~~5CHF x 2 = 10CHF~~
-- [ ] com.arthur.Dollar/com.arthur.Franc 중복
+- [ ] Dollar/Franc 중복
 - [ ] 공용 equals
 - [ ] 공용 times
 
@@ -578,14 +578,14 @@ To-Do List
 - [ ] $5 + 10CHF = $10
 - [x] ~~$5 x 2 = $10~~
 - [x] ~~amount를 private으로 만들기~~
-- [x] ~~com.arthur.Dollar 의 side effect~~
-- [ ] com.arthur.Money 반올림 ?
+- [x] ~~Dollar 의 side effect~~
+- [ ] Money 반올림 ?
 - [x] ~~equals()~~
 - [ ] hashCode()
 - [ ] Equal null
 - [ ] Equal object
 - [x] ~~5CHF x 2 = 10CHF~~
-- [ ] com.arthur.Dollar/com.arthur.Franc 중복
+- [ ] Dollar/Franc 중복
 - [ ] 공용 equals \*
 - [ ] 공용 times
 
@@ -593,14 +593,14 @@ To-Do List
 
 ### Dollar와 Franc의 공통 상위 클래스를 찾아내기
 
-1. 공통의 상위 클래스인 com.arthur.Money 생성하기
+1. 공통의 상위 클래스인 Money 생성하기
 
 ```java
-class com.arthur.Money
+class Money
 ```
 
 ```java
-import com.arthur.Money;
+import Money;
 
 class Dollar extends Money {
   private int amount;
@@ -611,13 +611,13 @@ class Dollar extends Money {
 2. amount 인스턴스 변수를 Money로 옮기기
 
 ```java
-class com.arthur.Money {
+class Money {
   protected int amount;
 }
 ```
 
 ```java
-import com.arthur.Money;
+import Money;
 
 class Dollar extends Money {
   ...
@@ -627,10 +627,10 @@ class Dollar extends Money {
 3. 이제 equals() 코드를 위로 올리는 일을 할 수 있게 됐다. 우선 임시변수를 선언하는 부분을 변경
 
 ```java
-// com.arthur.Dollar
+// Dollar
 
 public boolean equals(Object object) {
-  com.arthur.Money money = (com.arthur.Money) object;
+  Money money = (Money) object;
   return amount == money.amount;
 }
 ```
@@ -638,36 +638,36 @@ public boolean equals(Object object) {
 4. 이 메서드를 Dollar에서 Money로 옮길 수 있다.
 
 ```java
-// com.arthur.Money
+// Money
 
 public boolean equals(Object object) {
-  com.arthur.Money money = (com.arthur.Money) object;
+  Money money = (Money) object;
   return amount == money.amount;
 }
 ```
 
-5. com.arthur.Franc.equals() 제거
+5. Franc.equals() 제거
 
 - 현재 동치성 테스트가 Franc끼리의 비교에 대해서는 다루지 않는다. => 이를 추가하자.
 
 ```java
 public void testEquality() {
-  assertTrue(new com.arthur.Dollar(5).equals(new com.arthur.Dollar(5)));
-  assertFalse(new com.arthur.Dollar(5).equals(new com.arthur.Dollar(6)));
-  assertTrue(new com.arthur.Franc(5).equals(new com.arthur.Franc(5)));
-  assertFalse(new com.arthur.Franc(5).equals(new com.arthur.Franc(6)));
+  assertTrue(new Dollar(5).equals(new Dollar(5)));
+  assertFalse(new Dollar(5).equals(new Dollar(6)));
+  assertTrue(new Franc(5).equals(new Franc(5)));
+  assertFalse(new Franc(5).equals(new Franc(6)));
 }
 ```
 
 - Franc의 equals를 상위 클래스 Money에 맞게 고쳐보고, Money의 equals와 동일하다면 제거한다.
 
 ```java
-// com.arthur.Franc
+// Franc
 ...
 @deprecated
 public boolean equals(Object object) { // Money의 equals와 동일하므로 제거
-  com.arthur.Money money = (com.arthur.Money) object;
-  return amount == com.arthur.Money.amount;
+  Money money = (Money) object;
+  return amount == Money.amount;
 }
 ```
 
@@ -678,17 +678,17 @@ To-Do List
 - [ ] $5 + 10CHF = $10
 - [x] ~~$5 x 2 = $10~~
 - [x] ~~amount를 private으로 만들기~~
-- [x] ~~com.arthur.Dollar 의 side effect~~
-- [ ] com.arthur.Money 반올림 ?
+- [x] ~~Dollar 의 side effect~~
+- [ ] Money 반올림 ?
 - [x] ~~equals()~~
 - [ ] hashCode()
 - [ ] Equal null
 - [ ] Equal object
 - [x] ~~5CHF x 2 = 10CHF~~
-- [ ] com.arthur.Dollar/com.arthur.Franc 중복
+- [ ] Dollar/Franc 중복
 - [x] ~~공용 equals~~ \*
 - [ ] 공용 times
-- [ ] Franc과 com.arthur.Dollar 비교하기
+- [ ] Franc과 Dollar 비교하기
 
 ---
 
@@ -697,8 +697,8 @@ To-Do List
 
 #### 6-1. 지금까지 한 작업들
 
-- 공통된 코드를 첫 번째 클래스(com.arthur.Dollar)에서 상위 클래스(com.arthur.Money)로 단계적으로 옮겼다.
-- 두번째 클래서(com.arthur.Franc)도 Money의 하위 클래스로 만들었다.
+- 공통된 코드를 첫 번째 클래스(Dollar)에서 상위 클래스(Money)로 단계적으로 옮겼다.
+- 두번째 클래서(Franc)도 Money의 하위 클래스로 만들었다.
 - 불필요한 구현을 제거하기 전에 두 equals()구현을 일치 시켰다.
 
 ## 7. 사과와 오렌지
@@ -710,17 +710,17 @@ To-Do List
 - [ ] $5 + 10CHF = $10
 - [x] ~~$5 x 2 = $10~~
 - [x] ~~amount를 private으로 만들기~~
-- [x] ~~com.arthur.Dollar 의 side effect~~
-- [ ] com.arthur.Money 반올림 ?
+- [x] ~~Dollar 의 side effect~~
+- [ ] Money 반올림 ?
 - [x] ~~equals()~~
 - [ ] hashCode()
 - [ ] Equal null
 - [ ] Equal object
 - [x] ~~5CHF x 2 = 10CHF~~
-- [ ] com.arthur.Dollar/com.arthur.Franc 중복
+- [ ] Dollar/Franc 중복
 - [x] ~~공용 equals~~
 - [ ] 공용 times
-- [ ] **Franc과 com.arthur.Dollar 비교하기** \*
+- [ ] **Franc과 Dollar 비교하기** \*
 
 ---
 
@@ -730,20 +730,20 @@ To-Do List
 
 ```java
 public void testEquality() {
-  assertTrue(new com.arthur.Dollar(5).equals(new com.arthur.Dollar(5)));
-  assertFalse(new com.arthur.Dollar(5).equals(new com.arthur.Dollar(6)));
-  assertTrue(new com.arthur.Franc(5).equals(new com.arthur.Franc(5)));
-  assertFalse(new com.arthur.Franc(5).equals(new com.arthur.Franc(6)));
-  assertFalse(new com.arthur.Franc(5).equals(new com.arthur.Dollar(5)));
+  assertTrue(new Dollar(5).equals(new Dollar(5)));
+  assertFalse(new Dollar(5).equals(new Dollar(6)));
+  assertTrue(new Franc(5).equals(new Franc(5)));
+  assertFalse(new Franc(5).equals(new Franc(6)));
+  assertFalse(new Franc(5).equals(new Dollar(5)));
 }
 ```
 
 - 마지막 테스트를 통과시키기 위해 오직 금액과 클래스가 서로 동일할 때만 두 Money가 서로 같은 것으로 코드를 수정하자.
 
 ```java
-// com.arthur.Money
+// Money
 public boolean equals(Object object) {
-  com.arthur.Money money = (com.arthur.Money) object;
+  Money money = (Money) object;
   return amount == money.amount
     && getClass().equals(money.getClass());
 }
@@ -761,17 +761,17 @@ To-Do List
 - [ ] $5 + 10CHF = $10
 - [x] ~~$5 x 2 = $10~~
 - [x] ~~amount를 private으로 만들기~~
-- [x] ~~com.arthur.Dollar 의 side effect~~
-- [ ] com.arthur.Money 반올림 ?
+- [x] ~~Dollar 의 side effect~~
+- [ ] Money 반올림 ?
 - [x] ~~equals()~~
 - [ ] hashCode()
 - [ ] Equal null
 - [ ] Equal object
 - [x] ~~5CHF x 2 = 10CHF~~
-- [ ] com.arthur.Dollar/com.arthur.Franc 중복
+- [ ] Dollar/Franc 중복
 - [x] ~~공용 equals~~
 - [ ] 공용 times \*
-- [x] ~~Franc과 com.arthur.Dollar 비교하기~~
+- [x] ~~Franc과 Dollar 비교하기~~
 
 ---
 
@@ -788,51 +788,51 @@ To-Do List
 - [ ] $5 + 10CHF = $10
 - [x] ~~$5 x 2 = $10~~
 - [x] ~~amount를 private으로 만들기~~
-- [x] ~~com.arthur.Dollar 의 side effect~~
-- [ ] com.arthur.Money 반올림 ?
+- [x] ~~Dollar 의 side effect~~
+- [ ] Money 반올림 ?
 - [x] ~~equals()~~
 - [ ] hashCode()
 - [ ] Equal null
 - [ ] Equal object
 - [x] ~~5CHF x 2 = 10CHF~~
-- [ ] com.arthur.Dollar/com.arthur.Franc 중복 \*
+- [ ] Dollar/Franc 중복 \*
 - [x] ~~공용 equals~~
 - [ ] 공용 times
-- [x] ~~Franc과 com.arthur.Dollar 비교하기~~
+- [x] ~~Franc과 Dollar 비교하기~~
 
 ---
 
-### com.arthur.Dollar/com.arthur.Franc 중복
+### Dollar/Franc 중복
 
 두 times의 구현코드가 거의 똑같다.
 
 ```java
-// com.arthur.Franc
-com.arthur.Franc times(int multiplier) {
-  return new com.arthur.Franc(amount * multiplier);
+// Franc
+Franc times(int multiplier) {
+  return new Franc(amount * multiplier);
 }
 ```
 
 ```java
-// com.arthur.Dollar
-com.arthur.Franc times(int multiplier) {
-  return new com.arthur.Dollar(amount * multiplier);
+// Dollar
+Franc times(int multiplier) {
+  return new Dollar(amount * multiplier);
 }
 ```
 
 양쪽 모두 Money를 반환하게 만들면 더 비슷하게 만들 수 있다.
 
 ```java
-// com.arthur.Franc
-com.arthur.Money times(int multiplier) {
-  return new com.arthur.Franc(amount * multiplier);
+// Franc
+Money times(int multiplier) {
+  return new Franc(amount * multiplier);
 }
 ```
 
 ```java
-// com.arthur.Dollar
-com.arthur.Money times(int multiplier) {
-  return new com.arthur.Dollar(amount * multiplier);
+// Dollar
+Money times(int multiplier) {
+  return new Dollar(amount * multiplier);
 }
 ```
 
@@ -842,16 +842,16 @@ com.arthur.Money times(int multiplier) {
 
 ```java
 public void testMultiplicatioin() {
-  com.arthur.Dollar five = com.arthur.Money.dollar(5);
-  assartEquals(new com.arthur.Dollar(10), five.times(2));
-  assartEquals(new com.arthur.Dollar(15), five.times(3));
+  Dollar five = Money.dollar(5);
+  assartEquals(new Dollar(10), five.times(2));
+  assartEquals(new Dollar(15), five.times(3));
 }
 ```
 
 ```java
-// com.arthur.Money
-static com.arthur.Dollar dollar(int amount) {
-  return new com.arthur.Dollar(amount);
+// Money
+static Dollar dollar(int amount) {
+  return new Dollar(amount);
 }
 ```
 
@@ -859,21 +859,21 @@ static com.arthur.Dollar dollar(int amount) {
 
 ```java
 public void testMultiplicatioin() {
-  com.arthur.Dollar five = com.arthur.Money.dollar(5);
-  assartEquals(com.arthur.Money.dollar(10), five.times(2));
-  assartEquals(com.arthur.Money.dollar(15), five.times(3));
+  Dollar five = Money.dollar(5);
+  assartEquals(Money.dollar(10), five.times(2));
+  assartEquals(Money.dollar(15), five.times(3));
 }
 ```
 
 - 컴파일러가 Money에는 times()가 정의되지 않았다는 사실을 알려준다.
-- 아직 times를 정의할 준비가 되지 않았기 때문에, Money를 추상 클래스로 변경한 후 com.arthur.Money.times()를 선언하자.
+- 아직 times를 정의할 준비가 되지 않았기 때문에, Money를 추상 클래스로 변경한 후 Money.times()를 선언하자.
 
 ```java
-import com.arthur.Dollar;// com.arthur.Money
-abstract class com.arthur.Money {
+import Dollar;// Money
+abstract class Money {
   ...
-  abstract com.arthur.Money times(int multiplier);
-  static com.arthur.Money dollar(int amount) {
+  abstract Money times(int multiplier);
+  static Money dollar(int amount) {
     return new Dollar(amount);
   }
 }
@@ -884,19 +884,19 @@ abstract class com.arthur.Money {
 
 ```java
 public void testMultiplicatioin() {
-  com.arthur.Dollar five = com.arthur.Money.dollar(5);
-  assartEquals(com.arthur.Money.dollar(10), five.times(2));
-  assartEquals(com.arthur.Money.dollar(15), five.times(3));
+  Dollar five = Money.dollar(5);
+  assartEquals(Money.dollar(10), five.times(2));
+  assartEquals(Money.dollar(15), five.times(3));
 }
 ```
 
 ```java
 public void testEquality() {
-  assertTrue(com.arthur.Money.dollar(5).equals(com.arthur.Money.dollar(5)));
-  assertFalse(com.arthur.Money.dollar(5).equals(nMoney.dollar(6)));
-  assertTrue(new com.arthur.Franc(5).equals(new com.arthur.Franc(5)));
-  assertFalse(new com.arthur.Franc(5).equals(new com.arthur.Franc(6)));
-  assertFalse(new com.arthur.Franc(5).equals(com.arthur.Money.dollar(5)));
+  assertTrue(Money.dollar(5).equals(Money.dollar(5)));
+  assertFalse(Money.dollar(5).equals(nMoney.dollar(6)));
+  assertTrue(new Franc(5).equals(new Franc(5)));
+  assertFalse(new Franc(5).equals(new Franc(6)));
+  assertFalse(new Franc(5).equals(Money.dollar(5)));
 }
 ```
 
@@ -907,26 +907,26 @@ public void testEquality() {
 
 ```java
 public void testMultiplicatioin() {
-  com.arthur.Franc five = com.arthur.Money.franc(5);
-  assartEquals(com.arthur.Money.franc(10), five.times(2));
-  assartEquals(com.arthur.Money.franc(15), five.times(3));
+  Franc five = Money.franc(5);
+  assartEquals(Money.franc(10), five.times(2));
+  assartEquals(Money.franc(15), five.times(3));
 }
 ```
 
 ```java
 public void testEquality() {
-  assertTrue(com.arthur.Money.dollar(5).equals(com.arthur.Money.dollar(5)));
-  assertFalse(com.arthur.Money.dollar(5).equals(nMoney.dollar(6)));
-  assertTrue(com.arthur.Money.franc(5).equals(com.arthur.Money.franc(5)));
-  assertFalse(com.arthur.Money.franc(5).equals(com.arthur.Money.franc(6)));
-  assertFalse(com.arthur.Money.franc(5).equals(com.arthur.Money.dollar(5)));
+  assertTrue(Money.dollar(5).equals(Money.dollar(5)));
+  assertFalse(Money.dollar(5).equals(nMoney.dollar(6)));
+  assertTrue(Money.franc(5).equals(Money.franc(5)));
+  assertFalse(Money.franc(5).equals(Money.franc(6)));
+  assertFalse(Money.franc(5).equals(Money.dollar(5)));
 }
 ```
 
 ```java
-// com.arthur.Money
-static com.arthur.Money franc(int amount) {
-  return new com.arthur.Franc(amount);
+// Money
+static Money franc(int amount) {
+  return new Franc(amount);
 }
 ```
 
@@ -937,17 +937,17 @@ To-Do List
 - [ ] $5 + 10CHF = $10
 - [x] ~~$5 x 2 = $10~~
 - [x] ~~amount를 private으로 만들기~~
-- [x] ~~com.arthur.Dollar 의 side effect~~
-- [ ] com.arthur.Money 반올림 ?
+- [x] ~~Dollar 의 side effect~~
+- [ ] Money 반올림 ?
 - [x] ~~equals()~~
 - [ ] hashCode()
 - [ ] Equal null
 - [ ] Equal object
 - [x] ~~5CHF x 2 = 10CHF~~
-- [ ] com.arthur.Dollar/com.arthur.Franc 중복 \*
+- [ ] Dollar/Franc 중복 \*
 - [x] ~~공용 equals~~
 - [ ] 공용 times
-- [x] ~~Franc과 com.arthur.Dollar 비교하기~~
+- [x] ~~Franc과 Dollar 비교하기~~
 - [ ] 통화?
 - [ ] testFrancMuliplication을 지워야 할까?
 
@@ -969,17 +969,17 @@ To-Do List
 - [ ] $5 + 10CHF = $10
 - [x] ~~$5 x 2 = $10~~
 - [x] ~~amount를 private으로 만들기~~
-- [x] ~~com.arthur.Dollar 의 side effect~~
-- [ ] com.arthur.Money 반올림 ?
+- [x] ~~Dollar 의 side effect~~
+- [ ] Money 반올림 ?
 - [x] ~~equals()~~
 - [ ] hashCode()
 - [ ] Equal null
 - [ ] Equal object
 - [x] ~~5CHF x 2 = 10CHF~~
-- [ ] com.arthur.Dollar/com.arthur.Franc 중복
+- [ ] Dollar/Franc 중복
 - [x] ~~공용 equals~~
 - [ ] 공용 times
-- [x] ~~Franc과 com.arthur.Dollar 비교하기~~
+- [x] ~~Franc과 Dollar 비교하기~~
 - [ ] 통화? \*
 - [ ] testFrancMuliplication을 지워야 할까?
 
@@ -993,8 +993,8 @@ To-Do List
 
 ```java
 public void testCurrency() {
-  assertEquals("USD", com.arthur.Money.dollar(1).currency());
-  assertEquals("CHF", com.arthur.Money.franc(1).currency());
+  assertEquals("USD", Money.dollar(1).currency());
+  assertEquals("CHF", Money.franc(1).currency());
 }
 ```
 
@@ -1003,19 +1003,19 @@ public void testCurrency() {
 - Money에 currency() 메서드 추가
 
 ```java
-// com.arthur.Money
+// Money
 abstract String currency();
 ```
 
 - 두 하위 클래스에서 이를 구현하자
 
 ```java
-// com.arthur.Franc
+// Franc
 String currency() {
   return "CHF";
 }
 
-// com.arthur.Dollar
+// Dollar
 String currency() {
   return "USD";
 }
@@ -1025,7 +1025,7 @@ String currency() {
 - 통화를 인스턴스 변수에 저장하고, 메서드에서는 그냥 그걸 반환하게 만들 수 있을 것 같다.
 
 ```java
-// com.arthur.Franc
+// Franc
 private String curreny;
 
 Frnac(int amount) {
@@ -1039,10 +1039,10 @@ String curreny() {
 ```
 
 ```java
-// com.arthur.Dollar
+// Dollar
 private String curreny;
 
-com.arthur.Dollar(int amount) {
+Dollar(int amount) {
   this.amount = amount;
   currency = "USD";
 }
@@ -1055,7 +1055,7 @@ String curreny() {
 - 이제 두 currency()가 동일하므로 변수 선언과 currency() 구현을 둘 다 위로 올릴(push up) 수 있게 됐다.
 
 ```java
-// com.arthur.Money
+// Money
 protected String currency;
 String currency() {
   return currency;
@@ -1066,8 +1066,8 @@ String currency() {
 - 우선 생성자에 인자를 추가하자
 
 ```java
-// com.arthur.Franc
-com.arthur.Franc(int amount, String currency) {
+// Franc
+Franc(int amount, String currency) {
   this.amount = amount;
   this.currency = "CHF";
 }
@@ -1076,43 +1076,43 @@ com.arthur.Franc(int amount, String currency) {
 - 생성자를 호출하는 코드 두 곳이 깨진다.
 
 ```java
-// com.arthur.Money
-static com.arthur.Money franc(int amount) {
-  return new com.arthur.Franc(amount, null);
+// Money
+static Money franc(int amount) {
+  return new Franc(amount, null);
 }
 ```
 
 ```java
-// com.arthur.Franc
-com.arthur.Money times(int multiplier) {
-  return new com.arthur.Franc(amount * multiplier, null);
+// Franc
+Money times(int multiplier) {
+  return new Franc(amount * multiplier, null);
 }
 ```
 
-- 잠깐! 왜 com.arthur.Franc.times()가 팩토리 메서드를 호출하지 않고 생성자를 호출하는 거지?
+- 잠깐! 왜 Franc.times()가 팩토리 메서드를 호출하지 않고 생성자를 호출하는 거지?
 - 진행하기 전에 times()를 정리하자
 
 ```java
-// com.arthur.Franc
-com.arthur.Money times(int multiplier) {
-  return com.arthur.Money.franc(amount * multiplier);
+// Franc
+Money times(int multiplier) {
+  return Money.franc(amount * multiplier);
 }
 ```
 
 - 이젠 팩토리 메서드가 'CHF'를 전달할 수 있다.
 
 ```java
-// com.arthur.Money
-static com.arthur.Money franc(int amount) {
-  return new com.arthur.Franc(amount, "CHF");
+// Money
+static Money franc(int amount) {
+  return new Franc(amount, "CHF");
 }
 ```
 
 - 그리고 마지막으로 인자를 인스턴스 변수에 할당할 수 있다.
 
 ```java
-// com.arthur.Franc
-com.arthur.Franc(int amount, String currency) {
+// Franc
+Franc(int amount, String currency) {
   this.amount = amount;
   this.currency = currency;
 }
@@ -1121,44 +1121,44 @@ com.arthur.Franc(int amount, String currency) {
 - 단번에 Dollar도 유사하게 수정가능하다.
 
 ```java
-// com.arthur.Money
-static com.arthur.Money dollar(int amount) {
-  return new com.arthur.Dollar(amount, "USD");
+// Money
+static Money dollar(int amount) {
+  return new Dollar(amount, "USD");
 }
 ```
 
 ```java
-// com.arthur.Dollar
-com.arthur.Dollar(int amount, String currency) {
+// Dollar
+Dollar(int amount, String currency) {
   this.amount = amount;
   this.currency = currency;
 }
 
-com.arthur.Money times(int multiplier) {
-  return com.arthur.Money.dollar(amount * multiplier);
+Money times(int multiplier) {
+  return Money.dollar(amount * multiplier);
 }
 ```
 
 - 두 생성자가 이제 동일해졌다. 구현을 상위 클래스에 올리자.
 
 ```java
-// com.arthur.Money
-com.arthur.Money(int amount, String currency) {
+// Money
+Money(int amount, String currency) {
   this.amount = amount;
   this.currency = currency;
 }
 ```
 
 ```java
-// com.arthur.Franc
-com.arthur.Franc(int amount, String currency) {
+// Franc
+Franc(int amount, String currency) {
   super(amount, currency);
 }
 ```
 
 ```java
-// com.arthur.Dollar
-com.arthur.Dollar(int amount, String currency) {
+// Dollar
+Dollar(int amount, String currency) {
   super(amount, currency);
 }
 ```
@@ -1170,17 +1170,17 @@ To-Do List
 - [ ] $5 + 10CHF = $10
 - [x] ~~$5 x 2 = $10~~
 - [x] ~~amount를 private으로 만들기~~
-- [x] ~~com.arthur.Dollar 의 side effect~~
-- [ ] com.arthur.Money 반올림 ?
+- [x] ~~Dollar 의 side effect~~
+- [ ] Money 반올림 ?
 - [x] ~~equals()~~
 - [ ] hashCode()
 - [ ] Equal null
 - [ ] Equal object
 - [x] ~~5CHF x 2 = 10CHF~~
-- [ ] com.arthur.Dollar/com.arthur.Franc 중복
+- [ ] Dollar/Franc 중복
 - [x] ~~공용 equals~~
 - [ ] 공용 times
-- [x] ~~Franc과 com.arthur.Dollar 비교하기~~
+- [x] ~~Franc과 Dollar 비교하기~~
 - [x] ~~통화?~~
 - [ ] testFrancMuliplication을 지워야 할까?
 
@@ -1203,17 +1203,17 @@ To-Do List
 - [ ] $5 + 10CHF = $10
 - [x] ~~$5 x 2 = $10~~
 - [x] ~~amount를 private으로 만들기~~
-- [x] ~~com.arthur.Dollar 의 side effect~~
-- [ ] com.arthur.Money 반올림 ?
+- [x] ~~Dollar 의 side effect~~
+- [ ] Money 반올림 ?
 - [x] ~~equals()~~
 - [ ] hashCode()
 - [ ] Equal null
 - [ ] Equal object
 - [x] ~~5CHF x 2 = 10CHF~~
-- [ ] com.arthur.Dollar/com.arthur.Franc 중복
+- [ ] Dollar/Franc 중복
 - [x] ~~공용 equals~~
 - [ ] 공용 times \*
-- [x] ~~Franc과 com.arthur.Dollar 비교하기~~
+- [x] ~~Franc과 Dollar 비교하기~~
 - [x] ~~통화?~~
 - [ ] testFrancMuliplication을 지워야 할까?
 
@@ -1223,101 +1223,101 @@ To-Do List
 두 times() 구현이 거의 비슷하긴 하지만 아직 완전히 동일하지는 않다.
 
 ```java
-// com.arthur.Franc
-com.arthur.Money times(int multiplier) {
-  return com.arthur.Money.franc(amount * multiplier);
+// Franc
+Money times(int multiplier) {
+  return Money.franc(amount * multiplier);
 }
 ```
 
 ```java
-// com.arthur.Dollar
-com.arthur.Money times(int multiplier) {
-  return com.arthur.Money.dollar(amount * multiplier);
+// Dollar
+Money times(int multiplier) {
+  return Money.dollar(amount * multiplier);
 }
 ```
 
 둘을 동일하게 만들 방법이 없다. 일단 다시 인라인 시켜보자.
 
 ```java
-// com.arthur.Franc
-com.arthur.Money times(int multiplier) {
-  return new com.arthur.Franc(amount * multiplier, "CHF");
+// Franc
+Money times(int multiplier) {
+  return new Franc(amount * multiplier, "CHF");
 }
 ```
 
 ```java
-// com.arthur.Dollar
-com.arthur.Money times(int multiplier) {
-  return new com.arthur.Dollar(amount * multiplier, "USD");
+// Dollar
+Money times(int multiplier) {
+  return new Dollar(amount * multiplier, "USD");
 }
 ```
 
 Franc에서는 인스턴수 변수 currency가 항상 'CHF'이므로 다음과 같이 쓸 수 있다.
 
 ```java
-// com.arthur.Franc
-com.arthur.Money times(int multiplier) {
-  return new com.arthur.Franc(amount * multiplier, currency);
+// Franc
+Money times(int multiplier) {
+  return new Franc(amount * multiplier, currency);
 }
 ```
 
 Dollar도 마찬가지이다.
 
 ```java
-// com.arthur.Dollar
-com.arthur.Money times(int multiplier) {
-  return new com.arthur.Dollar(amount * multiplier, curreny);
+// Dollar
+Money times(int multiplier) {
+  return new Dollar(amount * multiplier, curreny);
 }
 ```
 
 Franc을 가질지 Money를 가질지가 정말로 중요한 사실인가?
 그냥 수정하고 테스트를 돌려서 컴퓨터에게 직접 물어보자.
-com.arthur.Franc.times()가 Money를 반환하도록 고쳐보자.
+Franc.times()가 Money를 반환하도록 고쳐보자.
 
 ```java
-// com.arthur.Franc
-com.arthur.Money times(int multiplier) {
-  return new com.arthur.Money(amount * multiplier, currency);
+// Franc
+Money times(int multiplier) {
+  return new Money(amount * multiplier, currency);
 }
 ```
 
 컴파일러가 Money를 콘크리트 클래스로 바꿔야 한다고 말한다.
 
 ```java
-com.arthur.Money times(int amount) {
+Money times(int amount) {
   return null;
 }
 ```
 
-에러가 출력된다. ( "expected:<com.arthur.Money.com.arthur.Franc@31aebf> bas was <com.arthur.Money.com.arthur.Money@478a43>")
+에러가 출력된다. ( "expected:<Money.Franc@31aebf> bas was <Money.Money@478a43>")
 더 나은 메세지를 보기 위해 toString()을 정의해보자.
 
 ```java
-// com.arthur.Money
+// Money
 public String toString() {
   return amount + " " + currency;
 }
 ```
 
 이제 에러메세지에 "expected:<10 CHF> bas was <10 CHF>"라고 나온다.
-답은 맞았는데, 클래스가 다르다. com.arthur.Franc 대신 Money가 왔다.
+답은 맞았는데, 클래스가 다르다. Franc 대신 Money가 왔다.
 문제는 equals() 구현에 있다.
 
 ```java
-// com.arthur.Money
+// Money
 public boolean equals(Object object) {
-  com.arthur.Money money = (com.arthur.Money) object;
+  Money money = (Money) object;
 
   return amount == money.amount && getClass().equals(money.getClass());
 }
 ```
 
-우리 상황은 com.arthur.Franc(10, "CHF")와 com.arthur.Money(10, "CHF")가 서로 같기를 바라지만, 사실은 그렇지 않다고 보고된 것이다.
+우리 상황은 Franc(10, "CHF")와 Money(10, "CHF")가 서로 같기를 바라지만, 사실은 그렇지 않다고 보고된 것이다.
 우리는 이걸 그대로 테스트로 사용할 수 있다.
 
 ```java
 public void testDifferentClassEquality() {
-  assertTrue(new com.arthur.Money(10, "CHF").equals(new com.arthur.Franc(10, "CHF")));
+  assertTrue(new Money(10, "CHF").equals(new Franc(10, "CHF")));
 }
 ```
 
@@ -1325,35 +1325,35 @@ public void testDifferentClassEquality() {
 equals() 코드는 클래스가 아니라 currency를 비교해야한다.
 
 ```java
-// com.arthur.Money
+// Money
 public boolean equals(Object object) {
-  com.arthur.Money money = (com.arthur.Money) object;
+  Money money = (Money) object;
   return amount == money.amount && currency().equals(money.currency());
 }
 ```
 
-이제 com.arthur.Dollar.times()와 com.arthur.Franc.times()에서 Money를 반환해도 테스트가 여전히 통과하게 할 수 있다.
+이제 Dollar.times()와 Franc.times()에서 Money를 반환해도 테스트가 여전히 통과하게 할 수 있다.
 
 ```java
-// com.arthur.Franc
-com.arthur.Money times(int multiplier) {
-  return new com.arthur.Franc(amount * multiplier, currency);
+// Franc
+Money times(int multiplier) {
+  return new Franc(amount * multiplier, currency);
 }
 ```
 
 ```java
-// com.arthur.Dollar
-com.arthur.Money times(int multiplier) {
-  return new com.arthur.Dollar(amount * multiplier, curreny);
+// Dollar
+Money times(int multiplier) {
+  return new Dollar(amount * multiplier, curreny);
 }
 ```
 
 이제 두 구현이 동일해졌으니, 상위 클래스로 끌어 올릴 수 있다.
 
 ```java
-// com.arthur.Money
-com.arthur.Money times(int multiplier) {
-  return new com.arthur.Money(amount * multiplier, currency);
+// Money
+Money times(int multiplier) {
+  return new Money(amount * multiplier, currency);
 }
 ```
 
@@ -1364,17 +1364,17 @@ To-Do List
 - [ ] $5 + 10CHF = $10
 - [x] ~~$5 x 2 = $10~~
 - [x] ~~amount를 private으로 만들기~~
-- [x] ~~com.arthur.Dollar 의 side effect~~
-- [ ] com.arthur.Money 반올림 ?
+- [x] ~~Dollar 의 side effect~~
+- [ ] Money 반올림 ?
 - [x] ~~equals()~~
 - [ ] hashCode()
 - [ ] Equal null
 - [ ] Equal object
 - [x] ~~5CHF x 2 = 10CHF~~
-- [ ] com.arthur.Dollar/com.arthur.Franc 중복
+- [ ] Dollar/Franc 중복
 - [x] ~~공용 equals~~
 - [x] ~~공용 times~~
-- [x] ~~Franc과 com.arthur.Dollar 비교하기~~
+- [x] ~~Franc과 Dollar 비교하기~~
 - [x] ~~통화?~~
 - [ ] testFrancMuliplication을 지워야 할까?
 
@@ -1384,5 +1384,5 @@ To-Do List
 
 - 두 times()를 일치시키기 위해 그 메서드들이 호출하는 다른 메서드들을 인라인시킨 후 상수를 변수로 바꿔주었다.
 - 단지 디버깅을 위해 테스트 없이 toString()을 작성했다.
-- com.arthur.Franc 대신 Money를 반환하는 변경을 시도한 뒤 그것이 잘 작동할지를 테스트가 말하도록 했다.
+- Franc 대신 Money를 반환하는 변경을 시도한 뒤 그것이 잘 작동할지를 테스트가 말하도록 했다.
 - 실험해본 걸 뒤로 물리고 또 다른 테스트를 작성했다. 테스트를 작동했더니 실험도 제대로 작동했다.

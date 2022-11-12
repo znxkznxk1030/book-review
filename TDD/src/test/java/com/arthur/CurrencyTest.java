@@ -2,11 +2,12 @@ package com.arthur;
 
 import org.junit.jupiter.api.Test;
 
-public class MoneyTest {
+public class CurrencyTest {
 
     @Test
-    public void test() {
+    public void testMultiiplication() {
 
+      
     }
 }
 
