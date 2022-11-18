@@ -245,9 +245,9 @@ class Dollar {
 public void testMultiplicatioin() {
   Dollar five = new Dollar(5);
   five.times(2);
-  assartEquals(10, product.amount);
+  assertEquals(10, product.amount);
   five.times(3);
-  assartEquals(15, product.amount);
+  assertEquals(15, product.amount);
 }
 ```
 
@@ -258,9 +258,9 @@ public void testMultiplicatioin() {
 public void testMultiplication() {
   Dollar five = new Dollar(5);
   Dollar product = five.times(2);
-  assartEquals(10, product.amount);
+  assertEquals(10, product.amount);
   product = five.times(3);
-  assartEquals(15, product.amount);
+  assertEquals(15, product.amount);
 }
 ```
 
@@ -421,9 +421,9 @@ To-Do List
 public void testMultiplicatioin() {
   Dollar five = new Dollar(5);
   Dollar product = five.times(2);
-  assartEquals(10, product.amount);
+  assertEquals(10, product.amount);
   product = five.times(3);
-  assartEquals(15, procuet.amount);
+  assertEquals(15, procuet.amount);
 }
 ```
 
@@ -433,9 +433,9 @@ public void testMultiplicatioin() {
 public void testMultiplicatioin() {
   Dollar five = new Dollar(5);
   Dollar product = five.times(2);
-  assartEquals(new Dollar(10), product);
+  assertEquals(new Dollar(10), product);
   product = five.times(3);
-  assartEquals(new Dollar(15), product);
+  assertEquals(new Dollar(15), product);
 }
 ```
 
@@ -444,8 +444,8 @@ public void testMultiplicatioin() {
 ```java
 public void testMultiplicatioin() {
   Dollar five = new Dollar(5);
-  assartEquals(new Dollar(10), five.times(2));
-  assartEquals(new Dollar(15), five.times(3));
+  assertEquals(new Dollar(10), five.times(2));
+  assertEquals(new Dollar(15), five.times(3));
 }
 ```
 
@@ -511,8 +511,8 @@ To-Do List
 ```java
 public void testFrancMultiplicatioin() {
   Franc five = new Franc(5);
-  assartEquals(new Franc(10), five.times(2));
-  assartEquals(new Franc(15), five.times(3));
+  assertEquals(new Franc(10), five.times(2));
+  assertEquals(new Franc(15), five.times(3));
 }
 ```
 
@@ -843,8 +843,8 @@ Money times(int multiplier) {
 ```java
 public void testMultiplicatioin() {
   Dollar five = Money.dollar(5);
-  assartEquals(new Dollar(10), five.times(2));
-  assartEquals(new Dollar(15), five.times(3));
+  assertEquals(new Dollar(10), five.times(2));
+  assertEquals(new Dollar(15), five.times(3));
 }
 ```
 
@@ -860,8 +860,8 @@ static Dollar dollar(int amount) {
 ```java
 public void testMultiplicatioin() {
   Dollar five = Money.dollar(5);
-  assartEquals(Money.dollar(10), five.times(2));
-  assartEquals(Money.dollar(15), five.times(3));
+  assertEquals(Money.dollar(10), five.times(2));
+  assertEquals(Money.dollar(15), five.times(3));
 }
 ```
 
@@ -885,8 +885,8 @@ abstract class Money {
 ```java
 public void testMultiplicatioin() {
   Dollar five = Money.dollar(5);
-  assartEquals(Money.dollar(10), five.times(2));
-  assartEquals(Money.dollar(15), five.times(3));
+  assertEquals(Money.dollar(10), five.times(2));
+  assertEquals(Money.dollar(15), five.times(3));
 }
 ```
 
@@ -908,8 +908,8 @@ public void testEquality() {
 ```java
 public void testMultiplicatioin() {
   Franc five = Money.franc(5);
-  assartEquals(Money.franc(10), five.times(2));
-  assartEquals(Money.franc(15), five.times(3));
+  assertEquals(Money.franc(10), five.times(2));
+  assertEquals(Money.franc(15), five.times(3));
 }
 ```
 
