@@ -1,6 +1,6 @@
 package com.arthur;
 
-public abstract class Money {
+public class Money {
   protected int amount;
   protected String currency;
 
@@ -17,7 +17,9 @@ public abstract class Money {
     return new Franc(amount, "CHF");
   }
 
-  abstract Money times(int multiplier);
+  Money times(int multiplier) {
+    return new Money(amount * multiplier, currency);
+  }
   
   String currency() {
     return this.currency;
@@ -25,7 +27,10 @@ public abstract class Money {
 
   public boolean equals(Object object) {
     Money money = (Money) object;
-    return amount == money.amount
-        && getClass().equals(money.getClass());
+    return amount == money.amount && currency().equals(money.currency());
+  }
+
+  public String toString() {
+    return amount + " " + currency;
   }
 }
